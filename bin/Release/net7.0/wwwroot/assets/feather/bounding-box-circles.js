@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'bounding-box-circles',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16"><path d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM0 2a2 2 0 0 1 3.94-.5h8.12a2 2 0 1 1 2.44 2.44v8.12a2 2 0 1 1-2.44 2.44H3.94a2 2 0 1 1-2.44-2.44V3.94A2 2 0 0 1 0 2zm2.5 1.94v8.12a2 2 0 0 1 1.44 1.44h8.12a2 2 0 0 1 1.44-1.44V3.94a2 2 0 0 1-1.44-1.44H3.94A2 2 0 0 1 2.5 3.94zM14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" /></svg>'
+  });
+})()
