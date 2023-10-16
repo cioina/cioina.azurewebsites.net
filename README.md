@@ -9,7 +9,28 @@ When you find something wrong and really want me to correct it, just make a pull
 
 ## Run Binary On Local Windows Machine
 
-http://localhost:1503/api/v1.0
+### Website Setup
 
+In order use compiled binay from bin folder
+
+1. Clone this repository
+2. In IIS 10, setup a website to http://localhost:1503
+3. Change **ConnectionStrings** to your MS SQL Server in appsettings.json
+
+**appsettings.json**
 ```json
+{
+  "ApplicationSettings": {
+    "Secret": "http://localhost:1503/api/v1.0",
+    "ExpiresInMinutes": 1440
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=YourMSSQLServer;Initial Catalog=BlogAngularDb;Integrated Security=False;User Id=sa;Password=YourPassword;MultipleActiveResultSets=True"
+  },
+  "AllowedHosts": "*"
+}
 ```
+### Administrator Credintial
+
+**Email:** admin@myblog.com
+**Passord:** Admin123456Admin!
