@@ -6,3 +6,10 @@ Here are all my markdown files that I use to build all my "static" web pages for
 ## Why?
 
 When you find something wrong and really want me to correct it, just make a pull request!
+
+## Run Binary On Local Windows Machine
+
+http://localhost:1503/api/v1.0
+
+```json
+```
