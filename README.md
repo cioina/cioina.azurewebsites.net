@@ -21,8 +21,10 @@ In order use compiled binay from bin folder
 ```json
 {
   "ApplicationSettings": {
-    "Secret": "http://localhost:1503/api/v1.0",
-    "ExpiresInMinutes": 1440
+    "SecurityTokenDescriptorKey": "http://localhost:1503/api/v1.0",
+    "SecurityTokenDescriptorExpiresInMinutes": 1440,
+    "MaxFailedAccessAttempts": 7,
+    "DefaultLockoutTimeSpanInMinutes": 30
   },
   "ConnectionStrings": {
     "DefaultConnection": "Data Source=YourMSSQLServer;Initial Catalog=BlogAngularDb;Integrated Security=False;User Id=sa;Password=YourPassword;MultipleActiveResultSets=True"
