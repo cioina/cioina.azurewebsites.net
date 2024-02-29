@@ -1,7 +1,0 @@
-(function() {
-  __ant_icon_load({
-      name: 'eraser-fill',
-      theme: 'feather',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16"><path d="M8.09 2.2a2 2 0 0 1 2.82 0L14.8 6.1a2 2 0 0 1 0 2.82l-5.5 5.5a2 2 0 0 1-1.41.59H5.12a2 2 0 0 1-1.41-.59l-2.5-2.5a2 2 0 0 1 0-2.82L8.09 2.2zm.66 11.35-5.3-5.3L1.91 9.8a1 1 0 0 0 0 1.42l2.5 2.5a1 1 0 0 0 .71.29h2.76a1 1 0 0 0 .7-.3l.17-.15z" /></svg>'
-  });
-})()

@@ -1,7 +1,0 @@
-(function() {
-  __ant_icon_load({
-      name: 'skip-start',
-      theme: 'feather',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16"><path d="M4 4a.5.5 0 0 1 1 0v3.25l6.27-3.64c.52-.3 1.23.05 1.23.7v7.38c0 .66-.71 1-1.23.7L5 8.75V12a.5.5 0 0 1-1 0V4zm7.5.63L5.7 8l5.8 3.37V4.63z" /></svg>'
-  });
-})()

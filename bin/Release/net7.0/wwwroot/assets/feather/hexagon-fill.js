@@ -1,7 +1,0 @@
-(function() {
-  __ant_icon_load({
-      name: 'hexagon-fill',
-      theme: 'feather',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.5.13a1 1 0 0 0-1 0l-6 3.58a1 1 0 0 0-.5.87v6.84a1 1 0 0 0 .5.87l6 3.58a1 1 0 0 0 1 0l6-3.58a1 1 0 0 0 .5-.87V4.58a1 1 0 0 0-.5-.87L8.5.13z" /></svg>'
-  });
-})()

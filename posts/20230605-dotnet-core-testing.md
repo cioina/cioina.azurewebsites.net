@@ -1,18 +1,27 @@
 ---
 order: 0
-title: ASP.NET Core 7 Testing
+title: ASP.NET Core 8 Testing
+dynamic_angular_template: true
 ---
 
 <blockquote style="border-color: #faad14;">
-<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener">.NET Core 7.0.12</a>, modyfied source code of  <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener">MyTested.AspNetCore.Mvc - Fluent Testing
-  Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a> and modyfied source code of  <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener">Book Store</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a> .</strong></p>
+<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener">.NET Core 8.0.1</a>, modyfied source code of  <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener">MyTested.AspNetCore.Mvc - Fluent Testing
+  Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a>, and modyfied source code of  <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener">BookStore</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a> .</strong></p>
 </blockquote>
 
-[MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) is well known for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 7 and API controlers with Bearer Header Authorization based on JWT token implementation provided by .NET Core 7. Our ASP.NET Core project is based on [Book Store](https://github.com/kalintsenkov/BookStore) and modefied in a such way that actualy is posible to be tested with MyTested library.
+## Introduction
 
-## .NET Core Identity Controller Implementatin
+In this article, we will give an example of testing of .NET Core 8 code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 8 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core 8. Our .NET Core 8 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library.
 
-Our controler impleemntatin comes from [here](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs)
+The main focus of our example is testing of the standard `User Identity` provided by `Microsoft.AspNetCore.Identity`. The access to the user is provided by `UserManager<User>` micro service. The source code of all our examples is copied and pasted from our actual application. The compiled code of our .NET Core 8 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
+
+One of the advantages of having of a detailed test module for standard `Microsoft.AspNetCore.Identity` implementation is the fact that it is used very frequently in .NET Core applications. Following, we will give examples of API controller, the implementation of `User Identity` with Bearer Header Authorization based on JWT token and an example of a comprehensive `User Identity` controller testing.
+
+## .NET Core Identity Controller Implementation
+
+Our controller implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs). We added two more methods: `LoginPassword` and `Update` with `[Authorize(AuthenticationSchemes = Bearer, Policy = BearerPolicy)]` attribute that uses Bearer Header Authorization based on JWT token implementation provided by .NET Core 8. Our Angular 16 application that runs in a web browser will make a request to the endpoint `http://localhost:1503/api/v1.0/identity/update`. The request has an Authorization header with a JWT token. The request body has some data in JSON format. Our .NET Core 8 application must authenticate the user based on the JWT token and authorize the user based on a specific policy. Once the user passes the authorization process, the application must execute a command and return some data in JSON format. Below, we give an example of an API controller that will do all of those actions.
+
+### IdentityController
 
 ```csharp
 namespace BlogAngular.Web.Features;
@@ -64,9 +73,11 @@ public class IdentityController : ApiController
 }
 ```
 
-## .NET Core Identity Services Implementatin
+## .NET Core Identity Service Implementation
 
-Our service impementatin comes from [here](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Infrastructure/Identity/Services/IdentityService.cs)
+Our service implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Infrastructure/Identity/Services/IdentityService.cs). As we said earlier, this kind of `Identity Service` will look the same for all .NET Core 8 applications that use a standard `Microsoft.AspNetCore.Identity` implementation. Below, there is an example that we copied and pasted direct from our actual application.
+
+### IdentityService
 
 ```csharp
 namespace BlogAngular.Infrastructure.Identity.Services;
@@ -551,7 +562,150 @@ internal class IdentityService : IIdentity
 
 ## Comprehensive Identity Controller Testing
 
-Our implementation comes from [here](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/samples/Blog/Blog.Test/Pipeline/Admin/ArticlesPipelineTest.cs)
+The starting point for our implementation comes from [this GitHub repository](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/samples/Blog/Blog.Test/Pipeline/Admin/ArticlesPipelineTest.cs). As you can see, MyTested library was created for testing ASP.NET MVC. However, we made some changes and adapted it for testing API controllers with JWT token. First, we added `.WithHeaderAuthorization` method which implements Bearer Header Authorization- a string that starts with the word *Bearer* and has a valid JWT token. Following is an example of using it.
+
+```csharp
+    [Theory]
+    [MemberData(nameof(RegisterValidData))]
+    public void update_user_password_only_should_return_success_with_token(
+     string fullName,
+     string email,
+     string password)
+     => MyMvc
+         .Pipeline()
+         .ShouldMap(request => request
+            .WithMethod(HttpMethod.Put)
+            .WithHeaderAuthorization(StaticTestData.GetJwtBearer(email, 1))
+            .WithLocation("api/v1.0/identity/update")
+            .WithJsonBody(
+                 string.Format(@"{{""user"":{{""password"":""{0}""}}}}",
+                     string.Format("{0}{1}", password, 1)
+                 )
+            )
+         )
+         .To<IdentityController>(c => c.Update(new UserUpdateCommand
+         {
+             UserJson = new UserUpdateRequestModel(
+                 null,
+                 string.Format("{0}{1}", password, 1)
+             )
+         }))
+         .Which(controller => controller
+            .WithData(StaticTestData.GetUsers(3, email, fullName, password)))
+         .ShouldHave()
+         .ActionAttributes(attrs => attrs
+             .RestrictingForHttpMethod(HttpMethod.Put)
+             .RestrictingForAuthorizedRequests())
+         .AndAlso()
+         .ShouldReturn()
+         .ActionResult(result => result.Result(new UserResponseJsonProperty
+         {
+             UserJson = new UserResponseModel(
+                  string.Format("{0}{1}", email, 1),
+                  string.Format("{0}{1}", fullName, 1),
+                  $"Token: {string.Format("{0}{1}", email, 1)}"
+              )
+         }))
+         .AndAlso()
+         .ShouldPassForThe<ActionAttributes>(attributes =>
+         {
+             Assert.Equal(5, attributes.Count());
+         });
+```
+
+To really appreciate the beauty of MyTested, It must be compared to [an alternative](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/tests/Conduit.IntegrationTests/Features/Users/LoginTests.cs) method of testing. It is very easy to test against endpoint locations, input data in JSON format, and output data with MyTested library.
+When it comes to JWT authorization, a big amount of testing consists in testing for invalid JWT tokens:
+
+- `update_user_without_authorization_header_should_fail`- tests when JWT token is absent
+- `update_user_with_altered_authorization_header_should_fail`- tests when to a valid JWT token is added one character
+- `update_user_with_malformated_authorization_header_should_fail`- tests when JWT token has format `a.b`
+- `update_user_with_fake_authorization_header_should_fail`- tests when JWT token has correct format `a.b.c` but random characters
+- `update_user_with_incorrect_authorization_header_key_should_fail`- tests when JWT token is valid but was encrypted with a different key
+- `update_user_with_expired_authorization_header_should_fail`- tests when a valid JWT token was expired
+These are the most common case scenarios to test against an invalid JWT token and must be done just for one controller!
+MyTested cannot catch 401- error code directly. We found a workaround by using `RouteAssertionException` with a strange error message: `"Expected route '{0}' to match {1} action in {2} but action could not be invoked because of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action), UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the action itself, or you must set the request properties so that they will pass through the pipeline."` In real life, .NET Core 8 will return a 401-error code. In that way, we created a series of tests for testing invalid JWT tokens such as:
+
+```csharp
+    [Theory]
+    [MemberData(nameof(RegisterValidData))]
+    public void update_user_without_authorization_header_should_fail(
+     string fullName,
+#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
+     string email,
+#pragma warning restore xUnit1026 // Theory methods should use all of their parameters
+     string password)
+     => Test.AssertException<MyTested.AspNetCore.Mvc.Exceptions.RouteAssertionException>(
+     () =>
+     {
+         MyMvc
+        .Pipeline()
+        .ShouldMap(request => request
+            .WithMethod(HttpMethod.Put)
+            // without WithHeaderAuthorization
+            .WithLocation("api/v1.0/identity/update")
+            .WithJsonBody(
+                 string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+                     string.Format("{0}{1}", password, 1),
+                     string.Format("{0}{1}", fullName, 1)
+                 )
+            )
+        )
+        .To<IdentityController>(c => c.Update(new UserUpdateCommand
+        {
+            UserJson = new UserUpdateRequestModel(
+                string.Format("{0}{1}", fullName, 1),
+                string.Format("{0}{1}", password, 1)
+            )
+        }));
+     }, string.Format(HeaderAuthorizationException.Replace(Environment.NewLine, ""), "/api/v1.0/identity/update", "Update", "IdentityController"));
+```
+
+Another change we made to MyTested is adding the possibility of testing data validation. We will discuss about this in a future article. For now, we will give an example of testing using [FluentValidation](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library.
+
+```csharp
+    [Theory]
+    [InlineData("n", "ValidEmail@a.bcde", "p")]
+    public void update_user_with_bad_input_should_return_validation_errors(
+     string fullName,
+     string email,
+     string password)
+     => Test.AssertValidationErrorsException<MyTested.AspNetCore.Mvc.Exceptions.ValidationErrorsAssertionException>(
+     () =>
+     {
+         MyMvc
+         .Pipeline()
+         .ShouldMap(request => request
+            .WithMethod(HttpMethod.Put)
+            .WithHeaderAuthorization(StaticTestData.GetJwtBearer(email, 1))
+            .WithLocation("api/v1.0/identity/update")
+            .WithJsonBody(
+                 string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+                     string.Format("{0}", password),
+                     string.Format("{0}", fullName)
+                 )
+            )
+         )
+         .To<IdentityController>(c => c.Update(new UserUpdateCommand
+         {
+             UserJson = new UserUpdateRequestModel(
+                      string.Format("{0}", fullName),
+                      string.Format("{0}", password)
+                  )
+         }))
+         .Which(controller => controller
+            .WithData(StaticTestData.GetUsers(3, email, fullName, password)))
+         .ShouldReturn();
+
+     }, new Dictionary<string, string[]>
+        {
+            { "UserJson.Password", new[] { "The length of 'User Json Password' must be at least 16 characters. You entered 1 characters." } },
+            { "UserJson.FullName", new[] { "The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters." } },
+        });
+```
+
+As you can see, now we can test data validation against the validation errors coming from `FluentValidation` library. Following is the full source code of testing `.NET Core User Identity` copied and pasted from our actual application.
+
+### IdentityControllerTest
 
 ```csharp
 namespace BlogAngular.Test.Routing;
@@ -575,19 +729,19 @@ using static ControllerExceptionMessages;
 public class ControllerExceptionMessages
 {
     //In real life returns 401
-    public const string HeaderAuthorizationException =
-@"Expected route '{0}' to match {1} action in {2} but action could not be invoked because
-of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action),
-UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the
+    public const string HeaderAuthorizationException = 
+@"Expected route '{0}' to match {1} action in {2} but action could not be invoked because 
+of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action), 
+UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the 
 action itself, or you must set the request properties so that they will pass through the pipeline.";
-    //In real life returns 500
+    //In real life returns 422
     public const string FromBaseDomainException =
-@"When calling {0} action in {1} expected no exception but AggregateException (containing
-{2} with 'Exception of type 'BlogAngular.Domain.Blog.Exceptions.{2}'
+@"When calling {0} action in {1} expected no exception but AggregateException (containing 
+{2} with 'Exception of type 'BlogAngular.Domain.Blog.Exceptions.{2}' 
 was thrown.' message) was thrown without being caught.";
     //In real life returns 422
     public const string DifferenceException =
-@"Expected route '{0}' to contain route value with '{1}' key and the provided value but
+@"Expected route '{0}' to contain route value with '{1}' key and the provided value but 
 the value was different. Difference occurs at '{2}'.";
     //In real life returns 404
     public const string RouteCouldNotBeMachedException =
@@ -1586,7 +1740,6 @@ public class IdentityControllerRouteTest
           Assert.Equal(4, attributes.Count());
       });
 
-
     [Theory]
     [MemberData(nameof(RegisterValidData))]
     //In real life returns 422 with a validation error: userJson.Email 'User Json Email' must not be empty.
@@ -1772,96 +1925,8 @@ public class IdentityControllerRouteTest
 }
 ```
 
-## Validation Exception Middleware
+## Conclusion
 
-Our impemetation comes from [here](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Middleware/ValidationExceptionHandlerMiddleware.cs)
-
-```csharp
-namespace BlogAngular.Web.Middleware;
-
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using Application.Common.Exceptions;
-using Application.Common.Models;
-using Domain.Common;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-public class ValidationExceptionHandlerMiddleware
-{
-    private readonly RequestDelegate next;
-
-    public ValidationExceptionHandlerMiddleware(RequestDelegate next)
-        => this.next = next;
-
-    public async Task Invoke(HttpContext context)
-    {
-        try
-        {
-            await this.next(context);
-        }
-        catch (Exception ex)
-        {
-            await HandleExceptionAsync(context, ex);
-        }
-    }
-
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-    {
-        var code = HttpStatusCode.InternalServerError;
-
-        var result = string.Empty;
-
-        switch (exception)
-        {
-            case ModelValidationException modelValidationException:
-                code = HttpStatusCode.UnprocessableEntity;
-                result = SerializeObject(
-                    new
-                    {
-                        modelValidationException.Errors
-                    }
-                );
-                break;
-        }
-
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)code;
-
-        if (string.IsNullOrEmpty(result))
-        {
-            var error = exception.Message;
-
-            if (exception is BaseDomainException baseDomainException)
-            {
-                error = baseDomainException.Error;
-            }
-
-            result = SerializeObject(
-                new ErrorListResult(exception.GetType().Name, new[] { error })
-                );
-        }
-
-        return context.Response.WriteAsync(result);
-    }
-
-    private static string SerializeObject(object obj)
-        => JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(true, true)
-            }
-        });
-}
-
-public static class ValidationExceptionHandlerMiddlewareExtensions
-{
-    public static IApplicationBuilder UseValidationExceptionHandler(
-        this IApplicationBuilder builder)
-        => builder.UseMiddleware<ValidationExceptionHandlerMiddleware>();
-}
-```
+In this article, we gave a common example of a `.NET Core Identity` controller, implemented a common `User Identity` service based on `UserManager<User>`, and showed a comprehensive `Identity` controller testing using MyTested library. From multiple examples, we can see how easy is to test against endpoint locations, input data as JSON strings, and output data. In addition, we showed a lot of examples for data validation against the validation errors coming from `FluentValidation` library.
+It is important to note, that having a detailed testing of API controllers based on MyTested library, gives us the possibility to debug .NET Core applications in Visual Studio 2022. For example, we can set a breakpoint in our application, go to test panel, find a MyTested test, and click Debug instead on Run.
+The Markdown version of this article and the compiled code of our .NET Core 8 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
