@@ -13,6 +13,7 @@
     "**/dist/**",
     "**/fixtures/**",
     "**/node_modules/**",
+    "**/bin/**",
     "packages/website/.docusaurus/**",
     "packages/website/build/**",
     "packages/website/src/vendor/**",

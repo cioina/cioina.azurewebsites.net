@@ -77,7 +77,7 @@ How do we simulate static content? All posts from this blog are Angular compiled
 
 ## Markdown Extension
 
-While transforming a markdown file into an Angular component and module, we implemended a markdown extension that will create a navigation menue from all heading lines of a markdown file. In addition, we implemented the posibility to include a code block with a special name `angular-template-block` to be iterpreded as a part of the Angulat template. The code block below, will be included in the generated Angulat component as a parth of the template.
+While transforming a markdown file into an Angular component and module, we implemented a markdown extension that will create a navigation menue from all heading lines of a markdown file. In addition, we implemented the posibility to include a code block with a special name `angular-template-block` to be iterpreded as a part of the Angular template. The code block below, will be included in the generated Angular component as a parth of the template.
 
 ```html
 <div class="pic-plus">

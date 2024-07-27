@@ -11,11 +11,32 @@ dynamic_angular_template: true
 
 ## Introduction
 
-In this article, we will give an example of testing of .NET Core 8 code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 8 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core 8. Our .NET Core 8 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library.
+In this article, we will give an example of testing of .NET Core code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 8 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 8 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. A full test project example is on [our GitHub repository](https://github.com/cioina/MyTested-test-project-example).
 
 The main focus of our example is testing of the standard `User Identity` provided by `Microsoft.AspNetCore.Identity`. The access to the user is provided by `UserManager<User>` micro service. The source code of all our examples is copied and pasted from our actual application. The compiled code of our .NET Core 8 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
 
 One of the advantages of having of a detailed test module for standard `Microsoft.AspNetCore.Identity` implementation is the fact that it is used very frequently in .NET Core applications. Following, we will give examples of API controller, the implementation of `User Identity` with Bearer Header Authorization based on JWT token and an example of a comprehensive `User Identity` controller testing.
+
+## MyTested Library Out of The Box
+
+I found out about MyTested for the first time from [BlazorShop repository](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Tests/Controllers/AddressesControllerTests.cs). At the same time, I found out about `JwtAuthentication` implementation from same [BlazorShop repository](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Web/Server/Infrastructure/Extensions/ServiceCollectionExtensions.cs) and from [aspnetcore-realworld-example repository](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/src/Conduit/StartupExtensions.cs). Both `JwtAuthentication` implementations did not work with original [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) library, so I decided to find out why. I do not know who engineered MyTested, but I was not able to fully understand how it works. I was able only to add some small pieces of code to make MyTested and my own `JwtAuthentication` implementation work and not to break any original MyTested tests. But, what MyTested can do out of the box? The best answer is in [MusicStore](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/tree/development/samples/MusicStore/MusicStore.Test) testing project. For the API controller, [here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Routing/FrontEndRouteTest.cs) is an example:
+
+```csharp
+    [Fact]
+    public void VersionShouldBeRouted()
+        => MyMvc
+        .Pipeline()
+        .ShouldMap(request => request
+            .WithMethod(HttpMethod.Get)
+            .WithLocation("api/v1.0/version"))
+        .To<VersionController>(c => c.Index())
+        .Which()
+        .ShouldReturn()
+        .ActionResult(result => result.Result(new VersionResponseJsonProperty
+        {
+            VersionJson = new VersionResponseModel()
+        }));
+```
 
 ## .NET Core Identity Controller Implementation
 
@@ -562,7 +583,7 @@ internal class IdentityService : IIdentity
 
 ## Comprehensive Identity Controller Testing
 
-The starting point for our implementation comes from [this GitHub repository](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/samples/Blog/Blog.Test/Pipeline/Admin/ArticlesPipelineTest.cs). As you can see, MyTested library was created for testing ASP.NET MVC. However, we made some changes and adapted it for testing API controllers with JWT token. First, we added `.WithHeaderAuthorization` method which implements Bearer Header Authorization- a string that starts with the word *Bearer* and has a valid JWT token. Following is an example of using it.
+The starting point for our implementation comes from [this GitHub repository](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/samples/Blog/Blog.Test/Pipeline/Admin/ArticlesPipelineTest.cs). As you can see, MyTested library was created for testing ASP.NET MVC. However, we made some changes and adapted it for testing API controllers with JWT token. First, we added `.WithHeaderAuthorization` method which implements Bearer Header Authorization- a string that starts with the word _Bearer_ and has a valid JWT token. Following is an example of using it.
 
 ```csharp
     [Theory]
@@ -616,14 +637,14 @@ The starting point for our implementation comes from [this GitHub repository](ht
 To really appreciate the beauty of MyTested, It must be compared to [an alternative](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/tests/Conduit.IntegrationTests/Features/Users/LoginTests.cs) method of testing. It is very easy to test against endpoint locations, input data in JSON format, and output data with MyTested library.
 When it comes to JWT authorization, a big amount of testing consists in testing for invalid JWT tokens:
 
-- `update_user_without_authorization_header_should_fail`- tests when JWT token is absent
-- `update_user_with_altered_authorization_header_should_fail`- tests when to a valid JWT token is added one character
-- `update_user_with_malformated_authorization_header_should_fail`- tests when JWT token has format `a.b`
-- `update_user_with_fake_authorization_header_should_fail`- tests when JWT token has correct format `a.b.c` but random characters
-- `update_user_with_incorrect_authorization_header_key_should_fail`- tests when JWT token is valid but was encrypted with a different key
-- `update_user_with_expired_authorization_header_should_fail`- tests when a valid JWT token was expired
-These are the most common case scenarios to test against an invalid JWT token and must be done just for one controller!
-MyTested cannot catch 401- error code directly. We found a workaround by using `RouteAssertionException` with a strange error message: `"Expected route '{0}' to match {1} action in {2} but action could not be invoked because of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action), UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the action itself, or you must set the request properties so that they will pass through the pipeline."` In real life, .NET Core 8 will return a 401-error code. In that way, we created a series of tests for testing invalid JWT tokens such as:
+- `Update_user_without_authorization_header_should_fail`- tests when JWT token is absent
+- `Update_user_with_altered_authorization_header_should_fail`- tests when to a valid JWT token is added one character
+- `Update_user_with_malformated_authorization_header_should_fail`- tests when JWT token has format `a.b`
+- `Update_user_with_fake_authorization_header_should_fail`- tests when JWT token has correct format `a.b.c` but random characters
+- `Update_user_with_incorrect_authorization_header_key_should_fail`- tests when JWT token is valid but was encrypted with a different key
+- `Update_user_with_expired_authorization_header_should_fail`- tests when a valid JWT token was expired
+  These are the most common case scenarios to test against an invalid JWT token and must be done just for one controller!
+  MyTested cannot catch 401- error code directly. We found a workaround by using `RouteAssertionException` with a strange error message: `"Expected route '{0}' to match {1} action in {2} but action could not be invoked because of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action), UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the action itself, or you must set the request properties so that they will pass through the pipeline."` In real life, .NET Core 8 will return a 401-error code. In that way, we created a series of tests for testing invalid JWT tokens such as:
 
 ```csharp
     [Theory]
@@ -729,19 +750,19 @@ using static ControllerExceptionMessages;
 public class ControllerExceptionMessages
 {
     //In real life returns 401
-    public const string HeaderAuthorizationException = 
-@"Expected route '{0}' to match {1} action in {2} but action could not be invoked because 
-of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action), 
-UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the 
+    public const string HeaderAuthorizationException =
+@"Expected route '{0}' to match {1} action in {2} but action could not be invoked because
+of the declared filters - ApiControllerAttribute (Controller), AuthorizeFilter (Action),
+UnsupportedContentTypeFilter (Global). Either a filter is setting the response result before the
 action itself, or you must set the request properties so that they will pass through the pipeline.";
     //In real life returns 422
     public const string FromBaseDomainException =
-@"When calling {0} action in {1} expected no exception but AggregateException (containing 
-{2} with 'Exception of type 'BlogAngular.Domain.Blog.Exceptions.{2}' 
+@"When calling {0} action in {1} expected no exception but AggregateException (containing
+{2} with 'Exception of type 'BlogAngular.Domain.Blog.Exceptions.{2}'
 was thrown.' message) was thrown without being caught.";
     //In real life returns 422
     public const string DifferenceException =
-@"Expected route '{0}' to contain route value with '{1}' key and the provided value but 
+@"Expected route '{0}' to contain route value with '{1}' key and the provided value but
 the value was different. Difference occurs at '{2}'.";
     //In real life returns 404
     public const string RouteCouldNotBeMachedException =

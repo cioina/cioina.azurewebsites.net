@@ -1,3 +1,9 @@
+# IDE - VSCode
+.nx/*
+.angular/*
+.vscode/*
+.vs/*
+
 # Logs
 logs
 *.log

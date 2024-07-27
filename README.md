@@ -3,6 +3,7 @@
 ## What Is This?
 
 Here are all my markdown files that I use to build all my "static" web pages for my website: https://cioina.azurewebsites.net
+
 ## Why?
 
 When you find something wrong and really want me to correct it, just make a pull request!
@@ -11,13 +12,14 @@ When you find something wrong and really want me to correct it, just make a pull
 
 ### Website Setup
 
-In order use compiled binay from bin folder
+In order use compiled binary from bin folder
 
 1. Clone this repository
 2. In IIS 10, setup a website to http://localhost:1503
 3. Change **ConnectionStrings** to your MS SQL Server in appsettings.json
 
-**appsettings.json**
+### appsettings.json
+
 ```json
 {
   "ApplicationSettings": {
@@ -32,7 +34,8 @@ In order use compiled binay from bin folder
   "AllowedHosts": "*"
 }
 ```
-### Administrator Credintial
+
+### Administrator Credential
 
 **Email:** admin@myblog.com
-**Passord:** Admin123456Admin!
+**Password:** Admin123456Admin!
