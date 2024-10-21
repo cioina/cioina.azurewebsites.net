@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'type-underline',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M5.31 3.14H4.08v6.4c0 2.1 1.47 3.62 3.92 3.62s3.92-1.51 3.92-3.62v-6.4h-1.23v6.32c0 1.49-.98 2.57-2.69 2.57s-2.69-1.08-2.69-2.57zM12.5 15h-9v-1h9z" /></svg>'
+  });
+})()
