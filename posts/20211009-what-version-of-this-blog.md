@@ -15,7 +15,7 @@ It may be problematic to have latest version for some websites that use Angular 
 
 From my experience, the problem may appear for old/outdated web browsers like one described above or when you open multiple tabs of the same page. You will get a message to reload/refresh the page with an error similar to **ERROR: b607b9112d721b487e78121fc3bbf455** (where b607b9112d721b487e78121fc3bbf455 is the new hash.)
 
-It was very simple for me to implement this solution because I use a server-side API and deploy my backend and frontend on the same server and generate my deployment with a Node.js script. So, I generate a small PHP file and small TypeScript file with some unique hash.
+It was very simple for me to implement this solution because I use a server-side API and deploy my backend and frontend on the same server and generate my deployment with a Node.js script. So, I generate  [a small PHP file](https://github.com/cioina/openshift-laravel-example/blob/main/src/acioina/site/src/Acioina/UserManagement/Http/Controllers/Api/VersionController.php) and small TypeScript file with some unique hash.
 
 **`VersionController.php`**
 
@@ -49,7 +49,7 @@ export const APP_VERSION = {
 };
 ```
 
-Currently we are moving our server-side to ASP.NET Core 7 and we are generating this small file:
+Currently we are moving our server-side to ASP.NET Core and we are generating this small file:
 
 **`VersionResponseModel.cs`**
 
@@ -104,7 +104,7 @@ I compile my frontend app with a command like this: `yarn build:site`. This simp
 
 ## Case Scenario #2
 
-This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from `ngsw-worker.js`. In addition, we use Angular SwUpdates which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
+This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from `ngsw-worker.js`. In addition, we use Angular [SwUpdates](https://github.com/ngrx/platform/blob/main/projects/ngrx.io/src/app/sw-updates/sw-updates.service.ts) which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
 
 ## Case Scenario #3
 

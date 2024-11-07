@@ -1,0 +1,1 @@
+import{Ad as t,Cd as n,yd as a,zd as i}from"./chunk-D525XZME.js";var e=a("fadeRouteAnimation",[n("*<=>*",[t({opacity:0,"will-change":"transform"}),i("0.3s ease-in",t({opacity:1,"will-change":"transform"}))])]);export{e as a};
