@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'caret-right',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M6 12.8V3.2L11.48 8zm.66.75 5.48-4.8a1 1 0 0 0 0-1.5l-5.48-4.8A1 1 0 0 0 5 3.2v9.6a1 1 0 0 0 1.66.75" /></svg>'
+  });
+})()

@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'arrow-90deg-up',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M4.85 1.15a.5.5 0 0 0-.7 0l-4 4a.5.5 0 1 0 .7.7L4 2.71v9.79A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.7l3.15 3.15a.5.5 0 1 0 .7-.7z" /></svg>'
+  });
+})()

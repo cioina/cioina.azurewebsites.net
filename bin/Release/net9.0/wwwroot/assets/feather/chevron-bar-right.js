@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'chevron-bar-right',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M4.15 3.65a.5.5 0 0 0 0 .7L7.79 8l-3.64 3.65a.5.5 0 0 0 .7.7l4-4a.5.5 0 0 0 0-.7l-4-4a.5.5 0 0 0-.7 0M11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5" /></svg>'
+  });
+})()

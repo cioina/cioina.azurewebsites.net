@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'hurricane',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M7 2.6a5.5 5.5 0 0 1 8 4.9.5.5 0 0 0 1 0 6.5 6.5 0 1 0-13 0 5 5 0 0 0 6 4.9 5.5 5.5 0 0 1-8-4.9.5.5 0 0 0-1 0 6.5 6.5 0 1 0 13 0 5 5 0 0 0-6-4.9m3 4.9a2 2 0 1 1-4 0 2 2 0 0 1 4 0" /></svg>'
+  });
+})()
