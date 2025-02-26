@@ -103,11 +103,11 @@ The full source code for the .NET Core `IdentityService` implementation can be f
 
 ## Advanced Testing with MyTested Library
 
-In [“Implementing JWT Token Refresh Concept for .NET Core 9”](https://cioina.azurewebsites.net/articles/ratelimit-middleware), we show an example of RateLimitMiddleware  and try some advanced testing with shared `MemoryCache`: `GetTagsWithRateLimitMiddleware` and `GetAllWithRateLimitMiddleware` from [StaticTestData.cs](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Data/StaticTestData.cs)).
+In ["Implementing JWT Token Refresh Concept for .NET Core 9"](https://cioina.azurewebsites.net/articles/ratelimit-middleware), we show an example of RateLimitMiddleware  and try some advanced testing with shared `MemoryCache`: `GetTagsWithRateLimitMiddleware` and `GetAllWithRateLimitMiddleware` from [StaticTestData.cs](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Data/StaticTestData.cs)).
 
 ## MyTested Library Limitations
 
-We applied modified version of MyTested library to three popular GitHub repositories: [BookStore](https://github.com/kalintsenkov/BookStore/tree/main/src/Server), [RealWorld](https://github.com/gothinkster/aspnetcore-realworld-example-app/tree/master/src/Conduit), and [CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture/tree/main/src). Our quick investigation shows that BookStore can be configurated to work 100% with MyTested while RealWorld works only with [anonymous controllers](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/src/Conduit/Features/Tags/TagsController.cs) and CleanArchitecture does not work at all.
+We applied modified version of MyTested library to three popular GitHub repositories: [BookStore](https://github.com/kalintsenkov/BookStore/tree/main/src/Server), [RealWorld](https://github.com/gothinkster/aspnetcore-realworld-example-app/tree/master/src/Conduit), and [CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture/tree/main/src). Our quick investigation shows that BookStore can be configured to work 100% with MyTested while RealWorld works only with [anonymous controllers](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/src/Conduit/Features/Tags/TagsController.cs) and CleanArchitecture does not work at all.
 The full test project source code can be found on [our GitHub repository]( https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Test/Test).
 
 ## Credits

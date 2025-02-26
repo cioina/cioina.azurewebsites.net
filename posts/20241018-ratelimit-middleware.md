@@ -27,7 +27,7 @@ public async Task<ActionResult<UserResponseEnvelope>> Update(
     => await this.Send(command);
 ```
 
-The user signs in and gets a JWT token which is saved in localStorage. Then, any request to the server includes obtained JWT token in the Authorization header. The server won’t use the token on public endpoints. It means that the server won’t try to decrypt the token. On the private endpoints, the server will try to decrypt the token, apply `BearerPolicy`, and match the role from the token to `AdministratorRoleName` list. At this point, the basic native .NET Core 9 implementation does not care if the user form the JWT token exists in the database, and it does not care if the role exists in the database ether. However, the server checks if the token expired and returns a 401 error if it’s the case. With all this in mind, we implemented the concept of JWT token refresh period called PRefresh. Let’s call the token’s valid period PValid. Then, `SecurityTokenDescriptorExpiresInMinutes` from [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net8.0/appsettings.json) = PValid + PRefresh and `SecurityTokenRefreshRate ` = PRefresh/(PValid + PRefresh). So, if `SecurityTokenDescriptorExpiresInMinutes`= 60 minutes and `SecurityTokenRefreshRate ` = 1/2, it means that PValid = 30 minutes and PRefresh = 30 minutes. If `SecurityTokenRefreshRate ` = 1/4, it means that PValid = 45 minutes and PRefresh = 15 minutes. If `SecurityTokenRefreshRate ` = 3/4, it means that PValid = 15 minutes and PRefresh = 45 minutes and so on. 
+The user signs in and gets a JWT token which is saved in localStorage. Then, any request to the server includes obtained JWT token in the Authorization header. The server won’t use the token on public endpoints. It means that the server won’t try to decrypt the token. On the private endpoints, the server will try to decrypt the token, apply `BearerPolicy`, and match the role from the token to `AdministratorRoleName` list. At this point, the basic native .NET Core 9 implementation does not care if the user form the JWT token exists in the database, and it does not care if the role exists in the database ether. However, the server checks if the token expired and returns a 401 error if it’s the case. With all this in mind, we implemented the concept of JWT token refresh period called PRefresh. Let’s call the token’s valid period PValid. Then, `SecurityTokenDescriptorExpiresInMinutes` from [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json) = PValid + PRefresh and `SecurityTokenRefreshRate ` = PRefresh/(PValid + PRefresh). So, if `SecurityTokenDescriptorExpiresInMinutes`= 60 minutes and `SecurityTokenRefreshRate ` = 1/2, it means that PValid = 30 minutes and PRefresh = 30 minutes. If `SecurityTokenRefreshRate ` = 1/4, it means that PValid = 45 minutes and PRefresh = 15 minutes. If `SecurityTokenRefreshRate ` = 3/4, it means that PValid = 15 minutes and PRefresh = 45 minutes and so on. 
 
 ## JWT Token Refresh Implementation
 
@@ -62,7 +62,7 @@ var claimsPrincipal = context.User!;
          }
      }
  }
- ```
+```
 
 So, we needed a middleware to place the above piece of code. A good candidate we found was AspNetCoreRateLimit library, so we decided to modify its source code keeping in mind also the possibility of testing it with MyTested. The original AspNetCoreRateLimit middleware is called [RateLimitMiddleware.cs](https://github.com/stefanprodan/AspNetCoreRateLimit/blob/master/src/AspNetCoreRateLimit/Middleware/RateLimitMiddleware.cs) Following is the modified source code that is used in our actual application.
 
@@ -488,7 +488,7 @@ Also, we made some additional small changes in AspNetCoreRateLimit library by bo
 
 1. Clone [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net)
 2. Follow the instruction form the Readme.md
-3. Change following in [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net8.0/appsettings.json):
+3. Change following in [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json):
     "SecurityTokenDescriptorExpiresInMinutes": 10,
     "SecurityTokenRefreshRate": 0.9 (both places)
 4. Sign-in as admin using menu: Home -> Sign-in
@@ -500,7 +500,7 @@ Also, we made some additional small changes in AspNetCoreRateLimit library by bo
 
 ## Conclusion
 
-In this article, we introduced JWT token Refresh period concept and used a middleware to implement it. In fact, we used modified source code of RateLimitMiddleware from AspNetCoreRateLimit library. It means that it still can be used to limit public endpoints (See [GeneralRules](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net8.0/appsettings.json) example). We implemented a way for testing the middleware with MyTested library. Finally, we provided a compiled .NET application for proof of concept.
+In this article, we introduced JWT token Refresh period concept and used a middleware to implement it. In fact, we used modified source code of RateLimitMiddleware from AspNetCoreRateLimit library. It means that it still can be used to limit public endpoints (See [GeneralRules](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json) example). We implemented a way for testing the middleware with MyTested library. Finally, we provided a compiled .NET application for proof of concept.
 
 ## Credits
 

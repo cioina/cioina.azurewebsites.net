@@ -126,10 +126,17 @@ using System.Threading.Tasks;
 
 namespace BlogAngular.Infrastructure.Identity.Services
 {
-    internal class IdentityService : IIdentity
+    internal class IdentityService(
+        IWebHostEnvironment env,
+        UserManager<User> userManager,
+        IJwtGenerator jwtGenerator,
+        IEventDispatcher eventDispatcher,
+        IOptions<ApplicationSettings> applicationSettings,
+        IHttpContextAccessor httpContextAccessor
+            ) : IIdentity
     {
         private const string InvalidErrorMessage = "Invalid credentials.";
-        private const string NoDataErrorMessage = "There is no data to proccess.";
+        private const string NoDataErrorMessage = "There is no data to process.";
         private const string IdentityErrorMessage = "Something went wrong. The server may be down.";
         private const string IdentityRoleErrorMessage = @"Cannot find role {0}";
         private const string UserNameTakenErrorMessage = "The user name has been taken.";
@@ -137,34 +144,18 @@ namespace BlogAngular.Infrastructure.Identity.Services
         private const string UserNullErrorMessage = "Cannot find user by Id.";
         private const string ProfileErrorMessage = "Cannot find user profile.";
         private const string UsernameFormatErrorMessage = "Username must contain letters and numbers.";
-        private const string PasswordFormatErrorMessage = "Password requared upper and lower case letters, digits, and at least one special simbol.";
+        private const string PasswordFormatErrorMessage = "Password required upper and lower case letters, digits, and at least one special symbol.";
+        private const string PasswordDeletedErrorMessage = "The old password was deleted. You must provide a new password.";
         private const string LockoutErrorMessage = @"You have been lockout for {0} minutes.{1}";
         private const string LockoutEnabledErrorMessage = "Lockout setting is not enabled.";
 
-        private readonly IWebHostEnvironment env;
-        private readonly UserManager<User> userManager;
-        private readonly IJwtGenerator jwtGenerator;
-        private readonly IEventDispatcher eventDispatcher;
-        private readonly ApplicationSettings applicationSettings;
-        private readonly IHttpContextAccessor httpContextAccessor;
-        internal static readonly string[] registerNotImplemented = new[] { "Register is not implemented yet." };
-
-        public IdentityService(
-            IWebHostEnvironment env,
-            UserManager<User> userManager,
-            IJwtGenerator jwtGenerator,
-            IEventDispatcher eventDispatcher,
-            IOptions<ApplicationSettings> applicationSettings,
-            IHttpContextAccessor httpContextAccessor
-            )
-        {
-            this.env = env;
-            this.userManager = userManager;
-            this.jwtGenerator = jwtGenerator;
-            this.eventDispatcher = eventDispatcher;
-            this.applicationSettings = applicationSettings.Value;
-            this.httpContextAccessor = httpContextAccessor;
-        }
+        private readonly IWebHostEnvironment env = env;
+        private readonly UserManager<User> userManager = userManager;
+        private readonly IJwtGenerator jwtGenerator = jwtGenerator;
+        private readonly IEventDispatcher eventDispatcher = eventDispatcher;
+        private readonly ApplicationSettings applicationSettings = applicationSettings.Value;
+        private readonly IHttpContextAccessor httpContextAccessor = httpContextAccessor;
+        internal static readonly string[] registerNotImplemented = ["Register is not implemented yet."];
 
         #region IsInRoleAsync
         public async Task<Result<bool>> IsInRoleAsync()
@@ -349,8 +340,8 @@ namespace BlogAngular.Infrastructure.Identity.Services
                 if (count == applicationSettings.MaxFailedAccessAttempts - 1)
                 {
                     var endDate = await userManager.GetLockoutEndDateAsync(user);
-                    var currectDate = DateTimeOffset.UtcNow;
-                    if (endDate > currectDate)
+                    var currentDate = DateTimeOffset.UtcNow;
+                    if (endDate > currentDate)
                     {
                         return Result<UserResponseEnvelope>.Failure(new Dictionary<string, string[]>
                     {
@@ -379,7 +370,7 @@ namespace BlogAngular.Infrastructure.Identity.Services
                             }
 
                             e.Description = string.Format(LockoutErrorMessage, applicationSettings.DefaultLockoutTimeSpanInMinutes, e.Code);
-                            errors.Add(e.Code, new[] { e.Description });
+                            errors.Add(e.Code, [e.Description]);
                         });
 
                         return Result<UserResponseEnvelope>.Failure(errors);
@@ -549,30 +540,6 @@ namespace BlogAngular.Infrastructure.Identity.Services
                 });
             }
 
-            if (userRequest.UserJson.FullName != null)
-            {
-                var identityResult1 = await this.userManager.SetUserNameAsync(
-                     user,
-                     userRequest.UserJson.FullName);
-
-                if (!identityResult1.Succeeded)
-                {
-                    var errors = new Dictionary<string, string[]>();
-                    identityResult1.Errors.ForEach(e =>
-                    {
-                        switch (e.Code)
-                        {
-                            case "InvalidUserName":
-                                e.Description = UsernameFormatErrorMessage;
-                                break;
-                        }
-                        errors.Add(e.Code, new[] { e.Description });
-                    });
-
-                    return Result<UserResponseEnvelope>.Failure(errors);
-                }
-            }
-
             if (userRequest.UserJson.Password != null)
             {
                 var identityResult2 = await this.userManager.RemovePasswordAsync(user);
@@ -582,7 +549,7 @@ namespace BlogAngular.Infrastructure.Identity.Services
                     var errors = new Dictionary<string, string[]>();
                     identityResult2.Errors.ForEach(e =>
                     {
-                        errors.Add(e.Code, new[] { e.Description });
+                        errors.Add(e.Code, [e.Description]);
                     });
 
                     return Result<UserResponseEnvelope>.Failure(errors);
@@ -603,8 +570,33 @@ namespace BlogAngular.Infrastructure.Identity.Services
                                 e.Description = PasswordFormatErrorMessage;
                                 break;
                         }
-                        errors.Add(e.Code, new[] { e.Description });
+                        errors.Add(e.Code, [e.Description]);
                     });
+                    errors.Add("PasswordDeleted", [PasswordDeletedErrorMessage]);
+                    return Result<UserResponseEnvelope>.Failure(errors);
+                }
+            }
+
+            if (userRequest.UserJson.FullName != null)
+            {
+                var identityResult1 = await this.userManager.SetUserNameAsync(
+                     user,
+                     userRequest.UserJson.FullName);
+
+                if (!identityResult1.Succeeded)
+                {
+                    var errors = new Dictionary<string, string[]>();
+                    identityResult1.Errors.ForEach(e =>
+                    {
+                        switch (e.Code)
+                        {
+                            case "InvalidUserName":
+                                e.Description = UsernameFormatErrorMessage;
+                                break;
+                        }
+                        errors.Add(e.Code, [e.Description]);
+                    });
+
                     return Result<UserResponseEnvelope>.Failure(errors);
                 }
             }
@@ -696,7 +688,7 @@ namespace BlogAngular.Infrastructure.Identity.Services
                                 e.Description = PasswordFormatErrorMessage;
                                 break;
                         }
-                        errors.Add(e.Code, new[] { e.Description });
+                        errors.Add(e.Code, [e.Description]);
                     });
 
                     return Result<UserResponseEnvelope>.Failure(errors);
@@ -722,7 +714,7 @@ namespace BlogAngular.Infrastructure.Identity.Services
             {
                 return Result<UserResponseEnvelope>.Failure(new Dictionary<string, string[]>
             {
-                 { "not_implemended_error", registerNotImplemented }
+                 { "not_implemented_error", registerNotImplemented }
             });
             }
         }
@@ -747,8 +739,8 @@ namespace BlogAngular.Infrastructure.Identity.Services
                 if (count == applicationSettings.MaxFailedAccessAttempts - 1)
                 {
                     var endDate = await userManager.GetLockoutEndDateAsync(user);
-                    var currectDate = DateTimeOffset.UtcNow;
-                    if (endDate > currectDate)
+                    var currentDate = DateTimeOffset.UtcNow;
+                    if (endDate > currentDate)
                     {
                         return Result<UserResponseEnvelope>.Failure(new Dictionary<string, string[]>
                     {
@@ -777,7 +769,7 @@ namespace BlogAngular.Infrastructure.Identity.Services
                             }
 
                             e.Description = string.Format(LockoutErrorMessage, applicationSettings.DefaultLockoutTimeSpanInMinutes, e.Code);
-                            errors.Add(e.Code, new[] { e.Description });
+                            errors.Add(e.Code, [e.Description]);
                         });
 
                         return Result<UserResponseEnvelope>.Failure(errors);
@@ -835,68 +827,6 @@ namespace BlogAngular.Infrastructure.Identity.Services
         }
     }
 }
-```
-
-## Comprehensive Identity Controller Testing
-
-The starting point for our implementation comes from [this GitHub repository](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/samples/Blog/Blog.Test/Pipeline/Admin/ArticlesPipelineTest.cs). As you can see, MyTested library was created for testing ASP.NET MVC. However, we made some changes and adapted it for testing API controllers with JWT token. First, we added `WithHeaderAuthorization` method which implements Bearer Header Authorization- a string that starts with the word *Bearer* and has a valid JWT token. Following is an example of using it:
-
-```csharp
-        [Theory]
-        [MemberData(nameof(RegisterValidData))]
-        public void Update_user_should_return_success_with_token(
-         string fullName,
-         string email,
-         string password)
-         => MyMvc
-             .Pipeline()
-             .ShouldMap(request => request
-                .WithMethod(HttpMethod.Put)
-                .WithHeaderAuthorization(StaticTestData.GetJwtBearerAdministratorRole(email, 1))
-                .WithLocation("api/v1.0/identity/update")
-                .WithJsonBody(
-                     string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
-                         string.Format(CultureInfo.InvariantCulture, "{0}{1}", password, 4),
-                         string.Format(CultureInfo.InvariantCulture, "{0}{1}", fullName, 4)
-                     )
-                )
-             )
-             .To<IdentityController>(c => c.Update(new UserUpdateCommand
-             {
-                 UserJson = new()
-                 {
-                     FullName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", fullName, 4),
-                     Password = string.Format(CultureInfo.InvariantCulture, "{0}{1}", password, 4),
-                 }
-             }))
-            .Which(controller => controller
-                   .WithData(db => db
-                        .WithEntities(entities => StaticTestData.GetUsersWithRole(
-                            count: 3,
-                            email: email,
-                            userName: fullName,
-                            password: password,
-                            dbContext: entities))))
-             .ShouldHave()
-             .ActionAttributes(attrs => attrs
-                 .RestrictingForHttpMethod(HttpMethod.Put)
-                 .RestrictingForAuthorizedRequests())
-             .AndAlso()
-             .ShouldReturn()
-             .ActionResult(result => result.Result(new UserResponseEnvelope
-             {
-                 UserJson = new()
-                 {
-                     Email = string.Format(CultureInfo.InvariantCulture, "{0}{1}", email, 1),
-                     UserName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", fullName, 4),
-                     Token = $"Token: {string.Format(CultureInfo.InvariantCulture, "{0}{1}", email, 1)}",
-                 }
-             }))
-             .AndAlso()
-             .ShouldPassForThe<ActionAttributes>(attributes =>
-             {
-                 Assert.Equal(5, attributes.Count());
-             });
 ```
 
 To really appreciate the beauty of MyTested, It must be compared to [an alternative](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/tests/Conduit.IntegrationTests/Features/Users/LoginTests.cs) method of testing. With MyTested library, it is very easy to test against endpoint locations, input data in JSON format and output data.
