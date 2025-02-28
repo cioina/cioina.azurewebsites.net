@@ -2,18 +2,18 @@
 
 ## Introduction
 
-[! [OpenShift Laravel Example](/assets/openshift-laravel-example.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/openshift-laravel-example.png)
+[![OpenShift Laravel Example](/assets/openshift-laravel-example.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/openshift-laravel-example.png)
 
 It looks like OpenShift Online became a public cloud platform for legacy applications. For example, there is no support for PHP 8 and Laravel 9 for the S2I method which worked well for PHP 7.3 and Laravel 8. So, I decided to switch from OpenShift to Azure and from Laravel 8/PHP 7.3/MySql 8 to ASP.Net Core 9.0/Azure SQL Server. The most important thing I liked about OpenShift Online is that you NEVER get a surprise bill. You just pay a flat rate of $50 per month. It looks like Azure provides same kind of services for $57 for .NET Core 9 app + $5 Azure SQL Server per month. It took me a couple of hours to figure out how to set up a deployment process to Azure via GitHub and a SQL Server instance. By default, your SQL Server instance will block any IP address, so you need to find the IP address of your .Net Core application and set it up in your SQL Server instance. 
 When it comes to OpenShift Online, the deployment process is quite simple: 
 1.	Push your updated PHP sources to a GitHub private repository.
 2.	Start a new deployment from OpenShift Online web application.
-The full source code of OpenShift Online app is on [out GitHub repository] (https://github.com/cioina/openshift-laravel-example)
+The full source code of OpenShift Online app is on [out GitHub repository](https://github.com/cioina/openshift-laravel-example)
 When it comes to Azure, a new deployment process will start automatically after you push your updated C# sources to a GitHub private repository. First, GitHub will try to compile your sources. This process is terribly slow if you use free GitHub services with limited resources.
 
 ## What Is This?
 
-[! [Cheapest .NET Core 9 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
+[![Cheapest .NET Core 9 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
 
 Here are all my markdown files that I use to build all my "static" web pages for my website: https://cioina.azurewebsites.net
 
