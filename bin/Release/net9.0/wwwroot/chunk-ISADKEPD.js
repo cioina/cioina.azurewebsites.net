@@ -1,1 +1,0 @@
-import{Kb as r}from"./chunk-DRX476G4.js";var p=(()=>{class e{transform(t,i,s=""){if(typeof t!="string")return t;let n=typeof i>"u"?t.length:i;return t.length<=n?t:t.substring(0,n)+s}static{this.\u0275fac=function(i){return new(i||e)}}static{this.\u0275pipe=r({name:"nzEllipsis",type:e,pure:!0})}}return e})();export{p as a};
