@@ -30,7 +30,7 @@ In order use compiled binary from bin folder
 1. Clone this repository
 2. Delete database **BlogAngularDb** if already exists. Make sure you do not need previous data.
 3. Change **ConnectionStrings** to your MS SQL Server in ```bin/Release/net9.0/appsettings.json```
-4. In IIS 10, setup a website to http://localhost:5001
+4. In IIS 10, setup a website to http://localhost:5000
 
 ### appsettings.json
 
