@@ -8,6 +8,7 @@ The main idea of this repository is to design and implement the cheapest website
 1. Azure App Service Basic Plan - B1
 2. SQL Database Single Basic - B
 3. Virtual Network Private Link
+
 The Azure App is composed of compiled [.NET Core 9 and compiled Angular 19 app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0) and designed to work like a dynamic (server side) and a static (client side) website. The static part of Angular app is generated with a script based on [NG-ZORRO documentation scripts](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/scripts) The main architecture of Angular app is described [here](https://github.com/cioina/angular-test-example). The architecture of .NET Core app is described [here]( https://github.com/cioina/MyTested-test-project-example) The [compiled JavaScript files](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0/wwwroot) are served by the same .NET Core app which serves API controllers. In this way, we get the simplest and cheapest website deployed to Microsoft Azure. Compared to [Moonglade](https://github.com/EdiWang/Moonglade/releases), our website has a much simple [API controller architecture](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Web/Web/Features) and deployment process is done from Visual Studio with a click on a single Publish button.
 
 ## What Is This?
