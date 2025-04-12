@@ -1,19 +1,16 @@
 # Using markdown for static web pages
 
+[![Cheapest .NET Core 9 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
+
 ## Introduction
 
-[![OpenShift Laravel Example](/assets/openshift-laravel-example.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/openshift-laravel-example.png)
-
-It looks like OpenShift Online became a public cloud platform for legacy applications. For example, there is no support for PHP 8 and Laravel 9 for the S2I method which worked well for PHP 7.3 and Laravel 8. So, I decided to switch from OpenShift to Azure and from Laravel 8/PHP 7.3/MySql 8 to ASP.Net Core 9.0/Azure SQL Server. The most important thing I liked about OpenShift Online is that you NEVER get a surprise bill. You just pay a flat rate of $50 per month. It looks like Azure provides same kind of services for $57 for .NET Core 9 app + $5 Azure SQL Server per month. It took me a couple of hours to figure out how to set up a deployment process to Azure via GitHub and a SQL Server instance. By default, your SQL Server instance will block any IP address, so you need to find the IP address of your .Net Core application and set it up in your SQL Server instance. 
-When it comes to OpenShift Online, the deployment process is quite simple: 
-1.	Push your updated PHP sources to a GitHub private repository.
-2.	Start a new deployment from OpenShift Online web application.
-The full source code of OpenShift Online app is on [out GitHub repository](https://github.com/cioina/openshift-laravel-example)
-When it comes to Azure, a new deployment process will start automatically after you push your updated C# sources to a GitHub private repository. First, GitHub will try to compile your sources. This process is terribly slow if you use free GitHub services with limited resources.
+The main idea of this repository is to design and implement the cheapest website based on the latest .NET Core and Angular frameworks deployed to Microsoft Azure. The total cost for the website is $69 per month, and it includes:
+1. Azure App Service Basic Plan - B1
+2. SQL Database Single Basic - B
+3. Virtual Network Private Link
+The Azure App is composed of compiled [.NET Core 9 and compiled Angular 19 app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0) and designed to work like a dynamic (server side) and a static (client side) website. The static part of Angular app is generated with a script based on [NG-ZORRO documentation scripts](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/scripts) The main architecture of Angular app is described [here](https://github.com/cioina/angular-test-example). The architecture of .NET Core app is described [here]( https://github.com/cioina/MyTested-test-project-example) The [compiled JavaScript files](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0/wwwroot) are served by the same .NET Core app which serves API controllers. In this way, we get the simplest and cheapest website deployed to Microsoft Azure. Compared to [Moonglade](https://github.com/EdiWang/Moonglade/releases), our website has a much simple [API controller architecture](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Web/Web/Features) and deployment process is done from Visual Studio with a click on a single Publish button.
 
 ## What Is This?
-
-[![Cheapest .NET Core 9 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
 
 Here are all my markdown files that I use to build all my "static" web pages for my website: https://cioina.azurewebsites.net
 
