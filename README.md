@@ -13,6 +13,8 @@ The Azure App is composed of compiled [.NET Core 9 and compiled Angular 19 app](
 
 ## What Is This?
 
+[![.NET Core 9 app](/assets/vs.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/vs.png)
+
 Here are all my markdown files that I use to build all my "static" web pages for my website: https://cioina.azurewebsites.net
 
 ## Why?
