@@ -5,6 +5,16 @@ short_title: Testing Angular Apps
 
 ## Introduction
 
+```angular-template-block
+<div class="pic-plus" style="text-align: center;">
+  <nz-icon nzType="custom:zorro" nzWidth="180px" nzHeight="180px" />
+  <span>+</span>
+  <nz-icon nzType="custom:angular" nzWidth="180px" nzHeight="180px" />
+  <span>=</span>
+  <nz-icon nzType="custom:ng-zorro" nzWidth="180px" nzHeight="180px" />
+</div>
+```
+
 [Our Angular app](https://cioina.azurewebsites.net/) Is based on [ng-antd-admin](https://github.com/huajian123/ng-antd-admin) combined with [angular-conduit-signals](https://github.com/AndyT2503/angular-conduit-signals). In addition, we use following Angular libraries direct form sources: [NG-ZORRO components src](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/components), [icons-angular src](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons-angular/src) and [component-store src](https://github.com/ngrx/platform/tree/main/modules/component-store/src) with some minor changes. All our reactive states look similar to [auth.store.ts](https://github.com/AndyT2503/angular-conduit-signals/blob/dev/src/app/shared/store/auth.store.ts)
 The app communicates with the server via REST API controllers built on top of .NET Core 9. The compiled bin code is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0) together with [compiled Angular app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0/wwwroot)
 
@@ -25,7 +35,7 @@ All the files ending in [*.store.spec.ts](https://github.com/cioina/angular-test
 
 ## Using Signal type in Angular together with Reactive State library
 
-Before Signal type became native in Agular, we used [Reactive State library]( https://github.com/ngrx/platform) for [our integration tests](https://github.com/cioina/angular-test-example/tree/main/version-1). Now, the library has implemented two ways of using Signals: [@ngrx/signals](https://github.com/stefanoslig/angular-ngrx-nx-realworld-example-app/blob/main/libs/auth/data-access/src/auth.store.ts) and [@ngrx/component-store](https://github.com/AndyT2503/angular-conduit-signals/blob/dev/src/app/shared/store/auth.store.ts). We use the second one direct from sources.
+Before Signal type became native in Angular, we used [Reactive State library]( https://github.com/ngrx/platform) for [our integration tests](https://github.com/cioina/angular-test-example/tree/main/version-1). Now, the library has implemented two ways of using Signals: [@ngrx/signals](https://github.com/stefanoslig/angular-ngrx-nx-realworld-example-app/blob/main/libs/auth/data-access/src/auth.store.ts) and [@ngrx/component-store](https://github.com/AndyT2503/angular-conduit-signals/blob/dev/src/app/shared/store/auth.store.ts). We use the second one direct from sources.
 
 ## Credits
 
@@ -36,4 +46,3 @@ Before Signal type became native in Agular, we used [Reactive State library]( ht
 - [hua jian](https://github.com/huajian123)
 - [Andy Tu Hoang](https://github.com/AndyT2503)
 - [Stefanos Lignos](https://github.com/stefanoslig)
-
