@@ -6,11 +6,11 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "BlogAngular.Startup/1.0.0": {
+      "BlogAngular.Startup/1.0.1": {
         "dependencies": {
           "AspNetCoreRateLimit": "5.0.0",
-          "BlogAngular.Infrastructure": "1.0.0",
-          "BlogAngular.Web": "1.0.0",
+          "BlogAngular.Infrastructure": "1.0.1",
+          "BlogAngular.Web": "1.0.1",
           "Microsoft.EntityFrameworkCore.Design": "9.0.4",
           "Ardalis.GuardClauses.Reference": "9.0.0.0"
         },
@@ -1276,10 +1276,10 @@
           }
         }
       },
-      "BlogAngular.Application/1.0.0": {
+      "BlogAngular.Application/1.0.1": {
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "BlogAngular.Domain": "1.0.0",
+          "BlogAngular.Domain": "1.0.1",
           "FluentValidation": "11.11.0",
           "MediatR": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.3.0",
@@ -1289,12 +1289,12 @@
         },
         "runtime": {
           "BlogAngular.Application.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
-      "BlogAngular.Domain/1.0.0": {
+      "BlogAngular.Domain/1.0.1": {
         "dependencies": {
           "Ardalis.GuardClauses": "9.0.0",
           "Ardalis.Specification": "9.0.0",
@@ -1302,15 +1302,15 @@
         },
         "runtime": {
           "BlogAngular.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
-      "BlogAngular.Infrastructure/1.0.0": {
+      "BlogAngular.Infrastructure/1.0.1": {
         "dependencies": {
           "Ardalis.Specification.EntityFrameworkCore": "9.0.0",
-          "BlogAngular.Application": "1.0.0",
+          "BlogAngular.Application": "1.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "9.0.4",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.4",
           "Microsoft.EntityFrameworkCore.InMemory": "9.0.4",
@@ -1318,14 +1318,14 @@
         },
         "runtime": {
           "BlogAngular.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
-      "BlogAngular.Web/1.0.0": {
+      "BlogAngular.Web/1.0.1": {
         "dependencies": {
-          "BlogAngular.Application": "1.0.0",
+          "BlogAngular.Application": "1.0.1",
           "FluentValidation.AspNetCore": "11.3.0",
           "MediatR": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "9.0.4",
@@ -1334,8 +1334,8 @@
         },
         "runtime": {
           "BlogAngular.Web.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
@@ -1373,7 +1373,7 @@
     }
   },
   "libraries": {
-    "BlogAngular.Startup/1.0.0": {
+    "BlogAngular.Startup/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -2376,22 +2376,22 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BlogAngular.Application/1.0.0": {
+    "BlogAngular.Application/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "BlogAngular.Domain/1.0.0": {
+    "BlogAngular.Domain/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "BlogAngular.Infrastructure/1.0.0": {
+    "BlogAngular.Infrastructure/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "BlogAngular.Web/1.0.0": {
+    "BlogAngular.Web/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
