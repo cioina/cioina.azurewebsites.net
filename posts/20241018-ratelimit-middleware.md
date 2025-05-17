@@ -489,8 +489,8 @@ Also, we made some additional small changes in AspNetCoreRateLimit library by bo
 1. Clone [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net)
 2. Follow the instruction form the Readme.md
 3. Change following in [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json):
-    "SecurityTokenDescriptorExpiresInMinutes": 10,
-    "SecurityTokenRefreshRate": 0.9 (both places)
+    `SecurityTokenDescriptorExpiresInMinutes`: 10,
+    `SecurityTokenRefreshRate`: 0.9 (both places)
 4. Sign-in as admin using menu: Home -> Sign-in
 5. Go to menu Admin->Articles editor
 6. Click on New Article button.

@@ -20,7 +20,6 @@ One of the advantages of having of a detailed test module for standard `Microsof
 I found out about MyTested for the first time from [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Tests/Controllers/AddressesControllerTests.cs) repository. At the same time, I found out about `JwtAuthentication` implementation from same [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Web/Server/Infrastructure/Extensions/ServiceCollectionExtensions.cs) repository and from [aspnetcore-realworld-example](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/src/Conduit/ServicesExtensions.cs) repository. Both `JwtAuthentication` implementations did not work with original [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) library, so I decided to find out why. I do not know who engineered MyTested, but I was not able to fully understand how it works. I was able only to add some small pieces of code to make MyTested and my own `JwtAuthentication` implementation work and not to break any original MyTested tests. But, what MyTested can do out of the box? The best answer is in [MusicStore](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/tree/development/samples/MusicStore/MusicStore.Test) testing project. For the API controller, [here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/FrontEndRouteTest.cs) is an example:
 
 ```csharp
-#if DEBUG
 using BlogAngular.Application.Common.Version;
 using BlogAngular.Web.Features;
 using MyTested.AspNetCore.Mvc;
@@ -32,21 +31,20 @@ namespace BlogAngular.Test.Routing
     {
         [Fact]
         public void VersionShouldBeRouted()
-            => MyMvc
-            .Pipeline()
-            .ShouldMap(request => request
-                .WithMethod(HttpMethod.Get)
-                .WithLocation("api/v1.0/version"))
-            .To<VersionController>(c => c.Index())
-            .Which()
-            .ShouldReturn()
-            .ActionResult(result => result.Result(new VersionResponseEnvelope
-            {
-                VersionJson = new VersionResponseModel()
-            }));
+        => MyMvc
+        .Pipeline()
+        .ShouldMap(request => request
+            .WithMethod(HttpMethod.Get)
+            .WithLocation("api/v1.0/version"))
+        .To<VersionController>(c => c.Index())
+        .Which()
+        .ShouldReturn()
+        .ActionResult(result => result.Result(new VersionResponseEnvelope
+        {
+            VersionJson = new VersionResponseModel()
+        }));
     }
 }
-#endif
 ```
 
 ## .NET Core Identity Controller Implementation
@@ -852,32 +850,31 @@ In real life, .NET Core 9 will return a 401-error code. We created a series of t
          string email,
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
          string password)
-         => AssertException<MyTested.AspNetCore.Mvc.Exceptions.RouteAssertionException>(
-         () =>
-         {
-             MyMvc
-            .Pipeline()
-            .ShouldMap(request => request
-                .WithMethod(HttpMethod.Put)
-                // without WithHeaderAuthorization
-                .WithLocation("api/v1.0/identity/update")
-                .WithJsonBody(
-                     string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
-                         string.Format(CultureInfo.InvariantCulture, "{0}{1}", password, 1),
-                         string.Format(CultureInfo.InvariantCulture, "{0}{1}", fullName, 1)
-                     )
-                )
-            )
-            .To<IdentityController>(c => c.Update(new UserUpdateCommand
-            {
-                UserJson = new()
-                {
-                    FullName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", fullName, 1),
-                    Password = string.Format(CultureInfo.InvariantCulture, "{0}{1}", password, 1),
-                }
-            }));
-
-         }, string.Format(HeaderAuthorizationException.Replace(Environment.NewLine, ""), "/api/v1.0/identity/update", "Update", "IdentityController"));
+        => AssertException<MyTested.AspNetCore.Mvc.Exceptions.RouteAssertionException>(
+        () =>
+        {
+            MyMvc
+             .Pipeline()
+             .ShouldMap(request => request
+                 .WithMethod(HttpMethod.Put)
+                 // without WithHeaderAuthorization
+                 .WithLocation("api/v1.0/identity/update")
+                 .WithJsonBody(
+                      string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+                          $"{password}1",
+                          $"{fullName}1"
+                      )
+                 )
+             )
+             .To<IdentityController>(c => c.Update(new UserUpdateCommand
+             {
+                 UserJson = new()
+                 {
+                     FullName = $"{fullName}1",
+                     Password = $"{password}1"
+                 }
+             }));
+        }, string.Format(HeaderAuthorizationException.Replace(Environment.NewLine, ""), "/api/v1.0/identity/update", "Update", "IdentityController"));
 ```
 
 The full set of tests of `IdentityController` is on [our GitHub repository](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs).
@@ -893,10 +890,10 @@ Another change we made to MyTested is adding the possibility of testing data val
          string fullName,
          string email,
          string password)
-         => AssertValidationErrorsException<MyTested.AspNetCore.Mvc.Exceptions.ValidationErrorsAssertionException>(
-         () =>
-         {
-             MyMvc
+        => AssertValidationErrorsException<MyTested.AspNetCore.Mvc.Exceptions.ValidationErrorsAssertionException>(
+        () =>
+        {
+            MyMvc
              .Pipeline()
              .ShouldMap(request => request
                 .WithMethod(HttpMethod.Put)
@@ -904,8 +901,8 @@ Another change we made to MyTested is adding the possibility of testing data val
                 .WithLocation("api/v1.0/identity/update")
                 .WithJsonBody(
                      string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
-                         string.Format(CultureInfo.InvariantCulture, "{0}", password),
-                         string.Format(CultureInfo.InvariantCulture, "{0}", fullName)
+                         $"{password}",
+                         $"{fullName}"
                      )
                 )
              )
@@ -920,12 +917,11 @@ Another change we made to MyTested is adding the possibility of testing data val
              .Which(controller => controller
                 .WithData(StaticTestData.GetUsers(3, email, fullName, password)))
              .ShouldReturn();
-
-         }, new Dictionary<string, string[]>
-            {
-            { "UserJson.Password", new[] { "The length of 'User Json Password' must be at least 16 characters. You entered 1 characters." } },
-            { "UserJson.FullName", new[] { "The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters." } },
-            });
+        }, new Dictionary<string, string[]>
+        {
+           { "UserJson.Password", ["The length of 'User Json Password' must be at least 16 characters. You entered 1 characters."] },
+           { "UserJson.FullName", ["The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters."] },
+        });
 ```
 
 As you can see, now we can test data validation against the validation errors coming from FluentValidation library. Following are [three tests](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/TagsControllerRouteTest.cs) witch test against the constraint that the tag name is unique:

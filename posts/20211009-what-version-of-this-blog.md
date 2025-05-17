@@ -13,7 +13,7 @@ It may be problematic to have latest version for some websites that use Angular 
 
 ## Case Scenario #1
 
-From my experience, the problem may appear for old/outdated web browsers like one described above or when you open multiple tabs of the same page. You will get a message to reload/refresh the page with an error similar to **ERROR: b607b9112d721b487e78121fc3bbf455** (where b607b9112d721b487e78121fc3bbf455 is the new hash.)
+From my experience, the problem may appear for old/outdated web browsers like one described above or when you open multiple tabs of the same page. You will get a message to reload/refresh the page with an error similar to **ERROR: b607b9112d** (where b607b9112d is the new hash.)
 
 It was very simple for me to implement this solution because I use a server-side API and deploy my backend and frontend on the same server and generate my deployment with a Node.js script. So, I generate  [a small PHP file](https://github.com/cioina/openshift-laravel-example/blob/main/src/acioina/site/src/Acioina/UserManagement/Http/Controllers/Api/VersionController.php) and small TypeScript file with some unique hash.
 
@@ -26,7 +26,7 @@ use Acioina\UserManagement\Transformers\VersionTransformer;
 
 class VersionController extends ApiController
 {
-    private const ANGULAR_APP_HASH = 'b607b9112d721b487e78121fc3bbf455';
+    private const ANGULAR_APP_HASH = 'b607b9112d';
 
     public function __construct(VersionTransformer $transformer)
     {
@@ -45,7 +45,7 @@ class VersionController extends ApiController
 ```typescript
 export const APP_VERSION = {
   version: '0.0.0',
-  hash: 'b607b9112d721b487e78121fc3bbf455',
+  hash: 'b607b9112d',
 };
 ```
 
@@ -60,7 +60,7 @@ public class VersionResponseModel
 {
     public VersionResponseModel()
     {
-        Hash = "b607b9112d721b487e78121fc3bbf455";
+        Hash = "b607b9112d";
     }
 
     [JsonProperty("hash")]
