@@ -13,7 +13,6 @@ I found out about MyTested for the first time from [BlazorShop](https://github.c
 But, what MyTested can do out of the box? The best answer is in [MusicStore](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/tree/development/samples/MusicStore/MusicStore.Test) testing project. For the API controller, [here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/FrontEndRouteTest.cs) is an example:
 
 ```csharp
-#if DEBUG
 using BlogAngular.Application.Common.Version;
 using BlogAngular.Web.Features;
 using MyTested.AspNetCore.Mvc;
@@ -25,22 +24,20 @@ namespace BlogAngular.Test.Routing
     {
         [Fact]
         public void VersionShouldBeRouted()
-            => MyMvc
-            .Pipeline()
-            .ShouldMap(request => request
-                .WithMethod(HttpMethod.Get)
-                .WithLocation("api/v1.0/version"))
-            .To<VersionController>(c => c.Index())
-            .Which()
-            .ShouldReturn()
-            .ActionResult(result => result.Result(new VersionResponseEnvelope
-            {
-                VersionJson = new VersionResponseModel()
-            }));
+        => MyMvc
+        .Pipeline()
+        .ShouldMap(request => request
+            .WithMethod(HttpMethod.Get)
+            .WithLocation("api/v1.0/version"))
+        .To<VersionController>(c => c.Index())
+        .Which()
+        .ShouldReturn()
+        .ActionResult(result => result.Result(new VersionResponseEnvelope
+        {
+            VersionJson = new VersionResponseModel()
+        }));
     }
 }
-#endif
-
 ```
 
 ## Basic API Controller Testing

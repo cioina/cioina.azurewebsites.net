@@ -884,44 +884,44 @@ The full set of tests of `IdentityController` is on [our GitHub repository](http
 Another change we made to MyTested is adding the possibility of testing data validation. For now, we will give an example of testing using [FluentValidation](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library:
 
 ```csharp
-        [Theory]
-        [InlineData("n", "ValidEmail@a.bcde", "p")]
-        public void Update_user_with_bad_input_should_return_validation_errors(
-         string fullName,
-         string email,
-         string password)
-        => AssertValidationErrorsException<MyTested.AspNetCore.Mvc.Exceptions.ValidationErrorsAssertionException>(
-        () =>
-        {
-            MyMvc
-             .Pipeline()
-             .ShouldMap(request => request
-                .WithMethod(HttpMethod.Put)
-                .WithHeaderAuthorization(StaticTestData.GetJwtBearerAdministratorRole(email, 1))
-                .WithLocation("api/v1.0/identity/update")
-                .WithJsonBody(
-                     string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
-                         $"{password}",
-                         $"{fullName}"
-                     )
-                )
+[Theory]
+[InlineData("n", "ValidEmail@a.bcde", "p")]
+public void Update_user_with_bad_input_should_return_validation_errors(
+ string fullName,
+ string email,
+ string password)
+=> AssertValidationErrorsException<MyTested.AspNetCore.Mvc.Exceptions.ValidationErrorsAssertionException>(
+() =>
+{
+    MyMvc
+     .Pipeline()
+     .ShouldMap(request => request
+        .WithMethod(HttpMethod.Put)
+        .WithHeaderAuthorization(StaticTestData.GetJwtBearerAdministratorRole(email, 1))
+        .WithLocation("api/v1.0/identity/update")
+        .WithJsonBody(
+             string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+                 $"{password}",
+                 $"{fullName}"
              )
-             .To<IdentityController>(c => c.Update(new UserUpdateCommand
-             {
-                 UserJson = new()
-                 {
-                     FullName = fullName,
-                     Password = password,
-                 }
-             }))
-             .Which(controller => controller
-                .WithData(StaticTestData.GetUsers(3, email, fullName, password)))
-             .ShouldReturn();
-        }, new Dictionary<string, string[]>
-        {
-           { "UserJson.Password", ["The length of 'User Json Password' must be at least 16 characters. You entered 1 characters."] },
-           { "UserJson.FullName", ["The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters."] },
-        });
+        )
+     )
+     .To<IdentityController>(c => c.Update(new UserUpdateCommand
+     {
+         UserJson = new()
+         {
+             FullName = fullName,
+             Password = password,
+         }
+     }))
+     .Which(controller => controller
+        .WithData(StaticTestData.GetUsers(3, email, fullName, password)))
+     .ShouldReturn();
+}, new Dictionary<string, string[]>
+{
+   { "UserJson.Password", ["The length of 'User Json Password' must be at least 16 characters. You entered 1 characters."] },
+   { "UserJson.FullName", ["The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters."] },
+});
 ```
 
 As you can see, now we can test data validation against the validation errors coming from FluentValidation library. Following are [three tests](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/TagsControllerRouteTest.cs) witch test against the constraint that the tag name is unique:
@@ -934,29 +934,29 @@ Sometimes, we need to validate against standard .Net services. For example, in t
 
 ```csharp
 …
-        if (userRequest.UserJson.FullName != null)
+if (userRequest.UserJson.FullName != null)
+{
+    var identityResult1 = await this.userManager.SetUserNameAsync(
+         user,
+         userRequest.UserJson.FullName);
+
+    if (!identityResult1.Succeeded)
+    {
+        var errors = new Dictionary<string, string[]>();
+        identityResult1.Errors.ForEach(e =>
+        {
+            switch (e.Code)
             {
-                var identityResult1 = await this.userManager.SetUserNameAsync(
-                     user,
-                     userRequest.UserJson.FullName);
-
-                if (!identityResult1.Succeeded)
-                {
-                    var errors = new Dictionary<string, string[]>();
-                    identityResult1.Errors.ForEach(e =>
-                    {
-                        switch (e.Code)
-                        {
-                            case "InvalidUserName":
-                                e.Description = UsernameFormatErrorMessage;
-                                break;
-                        }
-                        errors.Add(e.Code, new[] { e.Description });
-                    });
-
-                    return Result<UserResponseEnvelope>.Failure(errors);
-                }
+                case "InvalidUserName":
+                    e.Description = UsernameFormatErrorMessage;
+                    break;
             }
+            errors.Add(e.Code, new[] { e.Description });
+        });
+
+        return Result<UserResponseEnvelope>.Failure(errors);
+    }
+}
 …
 ```
 
