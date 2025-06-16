@@ -1,0 +1,1 @@
+import{j as r}from"./chunk-DUK7ADTL.js";var p="Expected a function";function i(h,e){if(typeof h!="function"||e!=null&&typeof e!="function")throw new TypeError(p);var t=function(){var c=arguments,n=e?e.apply(this,c):c[0],a=t.cache;if(a.has(n))return a.get(n);var o=h.apply(this,c);return t.cache=a.set(n,o)||a,o};return t.cache=new(i.Cache||r),t}i.Cache=r;var f=i;export{f as a};
