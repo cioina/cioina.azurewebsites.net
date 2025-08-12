@@ -21,8 +21,11 @@ This is an unofficial `ng-zorro-antd` demo website. The main goal is to explore 
 
 The main difference between this website and the [official](https://ng.ant.design/docs/introduce/en) `ng-zorro-antd` is that we don't use Server-side Rendering (SSR). If you are interested in SSR, you may choose:
 
-- [Angular Universal](https://github.com/angular/universal) - a static site generator for Angular
-- [Scully](https://github.com/scullyio/scully) - a static site generator for Angular
+- [Angular Universal](https://github.com/angular/universal) - outdated static site generator for Angular
+- [Scully](https://github.com/scullyio/scully) - outdated static site generator for Angular
+- [VuePress](https://github.com/vuepress/core) - Vue-Powered Static Site Generator
+- [Next.js](https://github.com/vercel/next.js) - The React Framework
+- [Analog](https://github.com/analogjs/analog) - The fullstack meta-framework for Angular. Powered by Vite and Nitro
 
 ## Compare Different Tools for Static Content Generation
 
