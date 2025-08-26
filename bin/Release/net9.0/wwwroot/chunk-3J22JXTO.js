@@ -1,1 +1,0 @@
-import{h as i}from"./chunk-SAG2RKB3.js";var o=i(({flowchart:t})=>{let r=t?.subGraphTitleMargin?.top??0,a=t?.subGraphTitleMargin?.bottom??0,e=r+a;return{subGraphTitleTopMargin:r,subGraphTitleBottomMargin:a,subGraphTitleTotalMargin:e}},"getSubGraphTitleMargins");export{o as a};

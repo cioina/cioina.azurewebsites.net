@@ -19,6 +19,8 @@ Each post represents a compiled JavaScrip file that loads via lazy-loading. The 
 
 To generate static syntax highlighting (which is static HTML,) we use `prismjs` on Node.js. This way, we do not need to include `prismjs` JavaScript in our web application.
 
+### Prism old
+
 ```javascript
 const fs = require('fs');
 const path = require('path');
@@ -62,6 +64,8 @@ componentsSet
 
 module.exports = Prism;
 ```
+
+### Prism v1
 
 ```javascript
 const prism = require('prismjs');
@@ -180,6 +184,44 @@ prism.languages.insertBefore('angular', 'string', {
 });
 
 module.exports = prism;
+```
+
+### Prism v2
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const getBuildCinfig = require('./get-build-config');
+const config = getBuildCinfig();
+
+function uniq(arr) {
+    const set = arr.reduce((set, item) => {
+        set[item] = true;
+        return set;
+        }, {});
+    return Object.keys(set);
+}
+
+const prismClass = require(`${config.prismDir}/core.js`).Prism;
+const Prism = new prismClass();
+
+const prismComponents = `${config.prismDir}/languages`;
+
+const files = fs.readdirSync(prismComponents)
+        .filter((key) => !key.endsWith('.js.map'));
+
+const components = files.map((key) => key.replace(/\.js$/, ''));
+
+let i=0;
+const componentsSet = uniq(components);
+componentsSet
+  .forEach((component) => {
+      let lang = require(path.join(prismComponents, component)).default;
+      Prism.components.add(lang);
+      console.log(`${i++} ${lang.id}`);
+  });
+
+module.exports = Prism;
 ```
 
 ## Deploy to a Cloud Platform
