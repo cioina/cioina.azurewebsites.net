@@ -50,7 +50,27 @@ In order use compiled binary from bin folder
     "DefaultConnection": "Data Source=YourMSSQLServer;Initial Catalog=BlogAngularDb;Integrated Security=False;User Id=sa;Password=YourPassword;MultipleActiveResultSets=True"
   },
   "AllowedHosts": "*",
-
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "logs\\blog-log-.txt",
+          "rollingInterval": "Month"
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext" ]
+  },
   "IpRateLimiting": {
     "EnableEndpointRateLimiting": true,
     "SecurityTokenRefreshRate": 0.5,
@@ -58,7 +78,6 @@ In order use compiled binary from bin folder
     "RealIpHeader": "X-Real-IP",
     "HttpStatusCode": 429,
     "IpWhitelist": [
-
     ],
     "EndpointWhitelist": [
       "post:/api/v1.0/identity",
@@ -67,7 +86,11 @@ In order use compiled binary from bin folder
       "get:/*.json",
       "get:/*.js",
       "get:/*.css",
-      "get:/*.ico"
+      "get:/*.ico",
+      "get:/*.svg",
+      "get:/*.ttf",
+      "get:/*.woff",
+      "get:/*.woff2"
     ],
     "ClientWhitelist": [
     ],
