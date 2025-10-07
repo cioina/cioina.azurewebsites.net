@@ -1,1 +1,0 @@
-import"./chunk-3XFQOAE3.js";var t=[{path:"",redirectTo:"menu1",pathMatch:"full"},{path:"menu1",loadChildren:()=>import("./chunk-G7F66N3D.js")},{path:"menu2",title:"Menu2",data:{key:"menu2"},loadComponent:()=>import("./chunk-7UTYQ7YQ.js").then(e=>e.Menu2Component)}];export{t as default};
