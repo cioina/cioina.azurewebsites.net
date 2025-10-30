@@ -184,9 +184,27 @@ namespace AspNetCoreRateLimit
                         }
                         else if (current < pValid)
                         {
+                            LogBlockedRequest(context, identity, identity.ClientIp);
                             await ReturnSecurityTokenRefreshRate(context, "SecurityTokenRefreshRate", "Please refresh your JWT token");
                             return;
                         }
+
+                        var claim = claimsPrincipal.FindFirst(ClaimTypes.UserData);
+                        if (claim != null)
+                        {
+                            if (this._env.EnvironmentName == "Test")
+                            {
+                                if (claim.Value == "0.0.0.0")
+                                {
+                                    await Task.FromException(new SecurityTokenRefreshException($"This is a test. PValid:  {pValid} Current: {current} ClientId: {clientId}"));
+                                }
+                            } else if (identity.ClientIp != claim.Value)
+                            {
+                                await ReturnSecurityTokenRefreshRate(context, "SecurityTokenRefreshRate", "Please refresh your IP");
+                                return;
+                            }
+                        }
+
                     }
                 }
 
@@ -238,7 +256,7 @@ namespace AspNetCoreRateLimit
                                 var retryAfter = rateLimitCounter.Timestamp.RetryAfterFrom(rule);
 
                                 // log blocked request
-                                LogBlockedRequest(context, identity, rateLimitCounter, rule);
+                                //LogBlockedRequest(context, identity, rateLimitCounter, rule);
 
                                 if (_options.RequestBlockedBehaviorAsync != null)
                                 {
@@ -263,7 +281,7 @@ namespace AspNetCoreRateLimit
                         else
                         {
                             // log blocked request
-                            LogBlockedRequest(context, identity, rateLimitCounter, rule);
+                            //LogBlockedRequest(context, identity, rateLimitCounter, rule);
 
                             if (_options.RequestBlockedBehaviorAsync != null)
                             {
@@ -397,8 +415,8 @@ namespace AspNetCoreRateLimit
             return sb.ToString();
         }
 
-        protected abstract void LogBlockedRequest(HttpContext httpContext, ClientRequestIdentity identity, RateLimitCounter counter, RateLimitRule rule);
-
+        //protected abstract void LogBlockedRequest(HttpContext httpContext, ClientRequestIdentity identity, RateLimitCounter counter, RateLimitRule rule);
+        protected abstract void LogBlockedRequest(HttpContext httpContext, ClientRequestIdentity identity, string message);
         private Task SetRateLimitHeaders(object rateLimitHeaders)
         {
             var headers = (RateLimitHeaders)rateLimitHeaders;
