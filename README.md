@@ -1,6 +1,6 @@
 # Using markdown for static web pages
 
-[![Cheapest .NET Core 9 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
+[![Cheapest .NET Core 10 app on Azure](/assets/azure-website-cost.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/azure-website-cost.png)
 
 ## Introduction
 
@@ -9,13 +9,13 @@ The main idea of this repository is to design and implement the cheapest website
 2. SQL Database Single Basic - B
 3. Virtual Network Private Link
 
-[![Publish .NET Core 9 app](/assets/publish.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/publish.png)
+[![Publish .NET Core 10 app](/assets/publish.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/publish.png)
 
-The Azure App is composed of compiled [.NET Core 9 and compiled Angular 19 app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0) and designed to work like a dynamic (server side) and a static (client side) website. The static part of Angular app is generated with a script based on [NG-ZORRO documentation scripts](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/scripts) The main architecture of Angular app is described [here](https://github.com/cioina/angular-test-example). The architecture of .NET Core app is described [here]( https://github.com/cioina/MyTested-test-project-example) The [compiled JavaScript files](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0/wwwroot) are served by the same .NET Core app which serves API controllers. In this way, we get the simplest and cheapest website deployed to Microsoft Azure. Compared to [Moonglade](https://github.com/EdiWang/Moonglade/releases), our website has a much simple [API controller architecture](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Web/Web/Features) and deployment process is done from Visual Studio with a click on a single Publish button.
+The Azure App is composed of compiled [.NET Core 10 and compiled Angular 20 app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0) and designed to work like a dynamic (server side) and a static (client side) website. The static part of Angular app is generated with a script based on [NG-ZORRO documentation scripts](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/scripts) The main architecture of Angular app is described [here](https://github.com/cioina/angular-test-example). The architecture of .NET Core app is described [here]( https://github.com/cioina/MyTested-test-project-example) The [compiled JavaScript files](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net9.0/wwwroot) are served by the same .NET Core app which serves API controllers. In this way, we get the simplest and cheapest website deployed to Microsoft Azure. Compared to [Moonglade](https://github.com/EdiWang/Moonglade/releases), our website has a much simple [API controller architecture](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Web/Web/Features) and deployment process is done from Visual Studio with a click on a single Publish button.
 
 ## What Is This?
 
-[![.NET Core 9 app](/assets/ng-blog.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/ng-blog.png)
+[![.NET Core 10 app](/assets/ng-blog.png?raw=true)](https://github.com/cioina/cioina.azurewebsites.net/blob/main/assets/ng-blog.png)
 
 Here are all my markdown files that I use to build all my "static" web pages for my website: https://cioina.azurewebsites.net
 
