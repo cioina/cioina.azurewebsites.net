@@ -5,7 +5,7 @@ short_title: MyTested Example
 
 ## Introduction
 
-The compiled code of our .NET Core 9 application is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net). For this test project, which is part our application, we will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 9 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 9 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library.
+The compiled code of our .NET Core 10 application is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net). For this test project, which is part our application, we will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 10 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 10 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library.
 
 ## MyTested Library Out of The Box
 
@@ -96,11 +96,11 @@ When it comes to JWT authorization, a big amount of testing consists in testing 
 
 These are the most common case scenarios to test against an invalid JWT token and must be done just for one controller!
 MyTested cannot catch 401 error code directly. We found a workaround by using [HeaderAuthorizationException](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs)
-The full source code for the .NET Core `IdentityService` implementation can be found [here](https://cioina.azurewebsites.net/articles/dotnet-core-testing#h-f5dcf3f1743665e0100f5e709e3971acd67ebe05)
+The full source code for the .NET Core `IdentityService` implementation can be found [here](https://cioina.azurewebsites.net/articles/dotnet-core-testing#h-6278f57b)
 
 ## Advanced Testing with MyTested Library
 
-In ["Implementing JWT Token Refresh Concept for .NET Core 9"](https://cioina.azurewebsites.net/articles/ratelimit-middleware), we show an example of RateLimitMiddleware  and try some advanced testing with shared `MemoryCache`: `GetTagsWithRateLimitMiddleware` and `GetAllWithRateLimitMiddleware` from [StaticTestData.cs](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Data/StaticTestData.cs)).
+In ["Implementing JWT Token Refresh Concept for .NET Core 10"](https://cioina.azurewebsites.net/articles/ratelimit-middleware), we show an example of RateLimitMiddleware  and try some advanced testing with shared `MemoryCache`: `GetTagsWithRateLimitMiddleware` and `GetAllWithRateLimitMiddleware` from [StaticTestData.cs](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Data/StaticTestData.cs)).
 
 ## MyTested Library Limitations
 

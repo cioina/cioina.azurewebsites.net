@@ -1,17 +1,17 @@
 ---
-title: ASP.NET Core 9 Testing
+title: ASP.NET Core 10 Testing
 short_title: ASP.NET Testing
 dynamic_angular_template: true
 ---
 
 <blockquote style="border-color: #faad14;">
-<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener">.NET Core 9.0.1</a>, modified source code of <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener">MyTested.AspNetCore.Mvc - Fluent Testing Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a>, and modified source code of <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener">BookStore</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></strong></p></blockquote>
+<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener">.NET Core 10.0.1</a>, modified source code of <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener">MyTested.AspNetCore.Mvc - Fluent Testing Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a>, and modified source code of <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener">BookStore</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></strong></p></blockquote>
 
 ## Introduction
 
-In this article, we will give an example of testing of .NET Core code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 9 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 9 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. A full test project example is on [our GitHub repository](https://github.com/cioina/MyTested-test-project-example).
+In this article, we will give an example of testing of .NET Core code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 10 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 10 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. A full test project example is on [our GitHub repository](https://github.com/cioina/MyTested-test-project-example).
 
-The main focus of our example is testing of the standard `User Identity` provided by `Microsoft.AspNetCore.Identity`. The access to the user is provided by `UserManager<User>` micro service. The source code of all our examples is copied and pasted from our actual application. The compiled code of our .NET Core 9 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
+The main focus of our example is testing of the standard `User Identity` provided by `Microsoft.AspNetCore.Identity`. The access to the user is provided by `UserManager<User>` micro service. The source code of all our examples is copied and pasted from our actual application. The compiled code of our .NET Core 10 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
 
 One of the advantages of having of a detailed test module for standard `Microsoft.AspNetCore.Identity` implementation is the fact that it is used very frequently in .NET Core applications. Following, we will give examples of API controller, the implementation of `User Identity` with Bearer Header Authorization based on JWT token and an example of a comprehensive `User Identity` controller testing.
 
@@ -49,7 +49,7 @@ namespace BlogAngular.Test.Routing
 
 ## .NET Core Identity Controller Implementation
 
-Our controller implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs). We added two more methods: `LoginPassword` and `Update` with `[Authorize(AuthenticationSchemes = Bearer, Policy = BearerPolicy)]` attribute that uses Bearer Header Authorization based on JWT token implementation provided by .NET Core 9. Our Angular 18 application that runs in a web browser will make a request to the endpoint `http://localhost:1503/api/v1.0/identity/update`. The request has an Authorization header with a JWT token. The request body has some data in JSON format. Our .NET Core 9 application must authenticate the user based on the JWT token and authorize the user based on a specific policy. Once the user passes the authorization process, the application must execute a command and return some data in JSON format. Below, we give an example of an [API controller](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs)
+Our controller implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs). We added two more methods: `LoginPassword` and `Update` with `[Authorize(AuthenticationSchemes = Bearer, Policy = BearerPolicy)]` attribute that uses Bearer Header Authorization based on JWT token implementation provided by .NET Core 10. Our Angular 20 application that runs in a web browser will make a request to the endpoint `http://localhost:1503/api/v1.0/identity/update`. The request has an Authorization header with a JWT token. The request body has some data in JSON format. Our .NET Core 10 application must authenticate the user based on the JWT token and authorize the user based on a specific policy. Once the user passes the authorization process, the application must execute a command and return some data in JSON format. Below, we give an example of an [API controller](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs)
 
 ### IdentityController
 
@@ -98,7 +98,7 @@ namespace BlogAngular.Web.Features
 
 ## .NET Core Identity Service Implementation
 
-Our service implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Infrastructure/Identity/Services/IdentityService.cs). As we said earlier, this kind of `Identity Service` will look the same for all .NET Core 9 applications that use a standard `Microsoft.AspNetCore.Identity` implementation. Below, there is an example that we copied and pasted direct from our actual application.
+Our service implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Infrastructure/Identity/Services/IdentityService.cs). As we said earlier, this kind of `Identity Service` will look the same for all .NET Core 10 applications that use a standard `Microsoft.AspNetCore.Identity` implementation. Below, there is an example that we copied and pasted direct from our actual application.
 
 ### IdentityService
 
@@ -839,7 +839,7 @@ When it comes to JWT authorization, a big amount of testing consists in testing 
 
 These are the most common case scenarios to test against an invalid JWT token and must be done just for one controller!
 MyTested cannot catch 401 error code directly. We found a workaround by using [HeaderAuthorizationException](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs)
-In real life, .NET Core 9 will return a 401-error code. We created a series of tests for testing invalid JWT tokens such as:
+In real life, .NET Core 10 will return a 401-error code. We created a series of tests for testing invalid JWT tokens such as:
 
 ```csharp
         [Theory]
@@ -968,7 +968,7 @@ if (userRequest.UserJson.FullName != null)
 
 In this article, we gave a common example of a .NET Core `Identity` controller, implemented a common `User Identity` service based on `UserManager<User>`, and showed a comprehensive `Identity` controller testing using MyTested library. From multiple examples, we can see how easy is to test against endpoint locations, input data as JSON strings, and output data. In addition, we showed a lot of examples for data validation against the validation errors coming from `FluentValidation` library.
 It is important to note, that having a detailed testing of API controllers based on MyTested library, gives us the possibility to debug .NET Core applications in Visual Studio 2022. For example, we can set a breakpoint in our application, go to test panel, find a MyTested test, and click Debug instead on Run.
-The Markdown version of this article and the compiled code of our .NET Core 9 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
+The Markdown version of this article and the compiled code of our .NET Core 10 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
 
 ## Credits
 

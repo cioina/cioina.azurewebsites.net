@@ -1,14 +1,14 @@
 ---
-title: Implementing JWT Token Refresh Concept for .NET Core 9
+title: Implementing JWT Token Refresh Concept for .NET Core 10
 short_title: JWT Token Refresh
 ---
 
 <blockquote style="border-color: #faad14;">
-<p><strong>The concept of Bearer Header Authorization based on JWT token implementation provided by .NET Core 9 is the same as in .NET Core 8. </strong></p></blockquote>
+<p><strong>The concept of Bearer Header Authorization based on JWT token implementation provided by .NET Core 10 is the same as in .NET Core 8. </strong></p></blockquote>
 
 ## Introduction
 
-The compiled code of our .NET Core 9 application is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net). For testing purpose, we will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 9 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. MyTested was engineered to work without middleware which is an advantage for many cases. However, the scope of this article was to find a way to tests middleware with MyTested. The full test project source code can be found on [our another GitHub repository](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Test/Test).
+The compiled code of our .NET Core 10 application is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net). For testing purpose, we will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 10 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. MyTested was engineered to work without middleware which is an advantage for many cases. However, the scope of this article was to find a way to tests middleware with MyTested. The full test project source code can be found on [our another GitHub repository](https://github.com/cioina/MyTested-test-project-example/tree/main/src/BlogAngular.Test/Test).
 
 ## Use Case Scenario
 
@@ -16,7 +16,7 @@ The user signs in and gets a JWT token valid for 30 minutes. The user opens a we
 
 ## JWT Token Refresh Concept
 
-First, we need to know how basic native JWT token implemented in .NET Core 9 works. Usually, there are [two types of API endpoints: public and private](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs). A private API endpoint look like this:
+First, we need to know how basic native JWT token implemented in .NET Core 10 works. Usually, there are [two types of API endpoints: public and private](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs). A private API endpoint look like this:
 
 ```csharp
 [HttpPut]
@@ -27,11 +27,11 @@ public async Task<ActionResult<UserResponseEnvelope>> Update(
     => await this.Send(command);
 ```
 
-The user signs in and gets a JWT token which is saved in localStorage. Then, any request to the server includes obtained JWT token in the Authorization header. The server won’t use the token on public endpoints. It means that the server won’t try to decrypt the token. On the private endpoints, the server will try to decrypt the token, apply `BearerPolicy`, and match the role from the token to `AdministratorRoleName` list. At this point, the basic native .NET Core 9 implementation does not care if the user form the JWT token exists in the database, and it does not care if the role exists in the database ether. However, the server checks if the token expired and returns a 401 error if it’s the case. With all this in mind, we implemented the concept of JWT token refresh period called PRefresh. Let’s call the token’s valid period PValid. Then, `SecurityTokenDescriptorExpiresInMinutes` from [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json) = PValid + PRefresh and `SecurityTokenRefreshRate` = PRefresh/(PValid + PRefresh). So, if `SecurityTokenDescriptorExpiresInMinutes`= 60 minutes and `SecurityTokenRefreshRate` = 1/2, it means that PValid = 30 minutes and PRefresh = 30 minutes. If `SecurityTokenRefreshRate` = 1/4, it means that PValid = 45 minutes and PRefresh = 15 minutes. If `SecurityTokenRefreshRate` = 3/4, it means that PValid = 15 minutes and PRefresh = 45 minutes and so on. 
+The user signs in and gets a JWT token which is saved in localStorage. Then, any request to the server includes obtained JWT token in the Authorization header. The server won’t use the token on public endpoints. It means that the server won’t try to decrypt the token. On the private endpoints, the server will try to decrypt the token, apply `BearerPolicy`, and match the role from the token to `AdministratorRoleName` list. At this point, the basic native .NET Core 10 implementation does not care if the user form the JWT token exists in the database, and it does not care if the role exists in the database ether. However, the server checks if the token expired and returns a 401 error if it’s the case. With all this in mind, we implemented the concept of JWT token refresh period called PRefresh. Let’s call the token’s valid period PValid. Then, `SecurityTokenDescriptorExpiresInMinutes` from [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net10.0/appsettings.json) = PValid + PRefresh and `SecurityTokenRefreshRate` = PRefresh/(PValid + PRefresh). So, if `SecurityTokenDescriptorExpiresInMinutes`= 60 minutes and `SecurityTokenRefreshRate` = 1/2, it means that PValid = 30 minutes and PRefresh = 30 minutes. If `SecurityTokenRefreshRate` = 1/4, it means that PValid = 45 minutes and PRefresh = 15 minutes. If `SecurityTokenRefreshRate` = 3/4, it means that PValid = 15 minutes and PRefresh = 45 minutes and so on. 
 
 ## JWT Token Refresh Implementation
 
-One interesting idea of JWT token implementation together with refresh token is on [EdiWang](https://github.com/EdiWang/Edi.AspNetCore.Jwt/blob/master/src/Edi.AspNetCore.Jwt/DefaultJwtAuthManager.cs) GitHub repository. Our main difference from above implementation is not using web browser cookies and uses native .NET Core implementation which is “controlled” by the .NET Core framework itself. One problem we solved in this article, is the implementation of `JWT Token` refresh mechanism. There is no standard way to refresh JWT token in .NET Core 9. The main idea was to check a valid `JWT token` right after standard .NET Core authorization and before entering of an API controller. In fact, we needed to use following formula with this small piece of code:
+One interesting idea of JWT token implementation together with refresh token is on [EdiWang](https://github.com/EdiWang/Edi.AspNetCore.Jwt/blob/master/src/Edi.AspNetCore.Jwt/DefaultJwtAuthManager.cs) GitHub repository. Our main difference from above implementation is not using web browser cookies and uses native .NET Core implementation which is “controlled” by the .NET Core framework itself. One problem we solved in this article, is the implementation of `JWT Token` refresh mechanism. There is no standard way to refresh JWT token in .NET Core 10. The main idea was to check a valid `JWT token` right after standard .NET Core authorization and before entering of an API controller. In fact, we needed to use following formula with this small piece of code:
 
 ```csharp
 var claimsPrincipal = context.User!;
@@ -198,8 +198,10 @@ namespace AspNetCoreRateLimit
                                 {
                                     await Task.FromException(new SecurityTokenRefreshException($"This is a test. PValid:  {pValid} Current: {current} ClientId: {clientId}"));
                                 }
-                            } else if (identity.ClientIp != claim.Value)
+                            }
+                            else if (identity.ClientIp != claim.Value)
                             {
+                                LogBlockedRequest(context, identity, $"New: {identity.ClientIp} Old: {claim.Value}");
                                 await ReturnSecurityTokenRefreshRate(context, "SecurityTokenRefreshRate", "Please refresh your IP");
                                 return;
                             }
@@ -506,7 +508,7 @@ Also, we made some additional small changes in AspNetCoreRateLimit library by bo
 
 1. Clone [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net)
 2. Follow the instruction form the Readme.md
-3. Change following in [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json):
+3. Change following in [appsettings.json](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net10.0/appsettings.json):
     `SecurityTokenDescriptorExpiresInMinutes`: 10,
     `SecurityTokenRefreshRate`: 0.9 (both places)
 4. Sign-in as admin using menu: Home -> Sign-in
@@ -518,7 +520,7 @@ Also, we made some additional small changes in AspNetCoreRateLimit library by bo
 
 ## Conclusion
 
-In this article, we introduced JWT token Refresh period concept and used a middleware to implement it. In fact, we used modified source code of RateLimitMiddleware from AspNetCoreRateLimit library. It means that it still can be used to limit public endpoints (See [GeneralRules](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net9.0/appsettings.json) example). We implemented a way for testing the middleware with MyTested library. Finally, we provided a compiled .NET application for proof of concept.
+In this article, we introduced JWT token Refresh period concept and used a middleware to implement it. In fact, we used modified source code of RateLimitMiddleware from AspNetCoreRateLimit library. It means that it still can be used to limit public endpoints (See [GeneralRules](https://github.com/cioina/cioina.azurewebsites.net/blob/main/bin/Release/net10.0/appsettings.json) example). We implemented a way for testing the middleware with MyTested library. Finally, we provided a compiled .NET application for proof of concept.
 
 ## Credits
 
