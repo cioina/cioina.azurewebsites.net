@@ -960,7 +960,7 @@ if (userRequest.UserJson.FullName != null)
 …
 ```
 
-[Here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs#L626) is the test:
+[Here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs#L696) is the test:
 
 - `Update_user_with_incorrect_user_name_should_fail`- Tests against the username implemented in `UserManager<User>`.
 
