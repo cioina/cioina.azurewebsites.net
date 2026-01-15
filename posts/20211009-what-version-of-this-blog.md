@@ -1,6 +1,7 @@
 ---
 title: What Version of This Blog Do You See?
 short_title: What Version?
+dynamic_angular_template: true
 ---
 
 As you can see, this website does not have a formal version tag. It uses the latest version of `ng-zorro-antd` and Angular as some kind of version tag. So, just imagine how surprised I was when I deployed this website compiled with Angular `12.2.9` and checking my very old Samsung that runs on Android 4.4.2. For some reason, the old Chrome web browser does not want to load this website correctly, so, I use an old version of FireFox browser for Android (As you may know, Google does not allow to update apps for old Android versions.) FireFox worked ok at first. But, when I closed and opened the browser again, this site loaded automatically and showed Angular `12.2.4` at the bottom of the footer. Somehow, FireFox cached an old version of my website. Deleting the FireFox cache did not help, but, reloading the URL would show the correct Angular `12.2.9`.
@@ -74,37 +75,48 @@ In my `app.component.ts`, I have something like this:
 @Component({
   selector: 'app-root',
   template: `
-    <div class="page-wrapper">
-      <app-header [windowWidth]="windowWidth" [isLoggedIn]="isLoggedIn" [username]="username"> </app-header>
-      <ng-container *ngIf="notification">
-        <nz-card>
-          <div nz-row nzJustify="center">
-            <div nz-col>
-              <h5 nz-typography nzType="danger" [nzContent]="notification"></h5>
-            </div>
+  ...
+  @if (themesOptions().hasFooterArea) {
+    @if (isCurrentVersion()) {
+      <nz-card>
+        <div nz-row nzJustify="center">
+          <div nz-col>
+            <h5
+              nz-typography
+              nzType="danger"
+              nzContent="You are using an old version of this website and some pages may not work correctly.
+              Please reload/refresh the page in order to load the latest version. (ERROR: {{ hash() }})"
+            ></h5>
           </div>
-        </nz-card>
-      </ng-container>
-...
-`
-  ngOnInit(): void {
-    this.versionFacade.getVersion();
+        </div>
+      </nz-card>
+    }
 
-    this.versionFacade.versionHash$.pipe(takeUntil(this.destroy$)).subscribe((hash: string) => {
-      if (hash && hash !== APP_VERSION.hash) {
-        this.notification =
-          'You are using an old version of this website and some pages may not work correctly. Please reload/refresh the page in order to load the latest version.';
-        this.cdr.markForCheck();
-      }
-    });
+    <nz-footer class="text-center"
+      >2026 Made with
+      <nz-icon nzType="heart-fill" nzTheme="feather" style="color: red;" />
+      by Alexei Cioina based on NG-ZORRO version {{ currentVersion }} and Angular {{ angularVersion }} compiled
+      on {{ compiledDate }}
+    </nz-footer>
   }
+ ...
+`
+export class DefaultComponent {
+  readonly #authStore = inject(AuthStore);
+  readonly isCurrentVersion = computed<boolean>(
+    () => !!this.hash() && !(this.hash() === APP_VERSION.hash || this.hash() === 'SwUpdatesService: activated')
+  );
+  readonly hash = computed<string>(() => this.#authStore.selectors.version().hash);
+  readonly currentVersion = ZORRO_VERSION.full;
+  readonly angularVersion = ANGULAR_VERSION.full;
+  readonly compiledDate = APP_VERSION.version;
 ```
 
 I compile my frontend app with a command like this: `yarn build:site`. This simple solution helped me to solve my FireFox problem, however, the most logical solution is not to allow outdated web browsers to access this website.
 
 ## Case Scenario #2
 
-This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from `ngsw-worker.js`. In addition, we use Angular [SwUpdates](https://github.com/ngrx/platform/blob/main/projects/ngrx.io/src/app/sw-updates/sw-updates.service.ts) which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
+This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from [ngsw-worker.js](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net10.0/wwwroot). In addition, we use Angular [SwUpdates](https://github.com/ngrx/platform/blob/main/projects/ngrx.io/src/app/sw-updates/sw-updates.service.ts) which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
 
 ## Case Scenario #3
 
