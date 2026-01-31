@@ -1,1 +1,0 @@
-import{Db as t}from"./chunk-BDNZKUNZ.js";var p=(()=>{class r{transform(e){return Array(e).fill(0)}static \u0275fac=function(i){return new(i||r)};static \u0275pipe=t({name:"numberLoop",type:r,pure:!0})}return r})();export{p as a};
