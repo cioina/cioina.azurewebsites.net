@@ -1,0 +1,1 @@
+import{Db as n}from"./chunk-IIY443J5.js";var f=(()=>{class r{transform(t,i,p=""){if(typeof t!="string")return t;let e=typeof i>"u"?t.length:i;return t.length<=e?t:t.substring(0,e)+p}static \u0275fac=function(i){return new(i||r)};static \u0275pipe=n({name:"nzEllipsis",type:r,pure:!0})}return r})();export{f as a};
