@@ -77,7 +77,7 @@ In my `app.component.ts`, I have something like this:
   template: `
   ...
   @if (themesOptions().hasFooterArea) {
-    @if (isCurrentVersion()) {
+    @if (isNotCurrentVersion()) {
       <nz-card>
         <div nz-row nzJustify="center">
           <div nz-col>
@@ -103,7 +103,7 @@ In my `app.component.ts`, I have something like this:
 `
 export class DefaultComponent {
   readonly #authStore = inject(AuthStore);
-  readonly isCurrentVersion = computed<boolean>(
+  readonly isNotCurrentVersion = computed<boolean>(
     () => !!this.hash() && !(this.hash() === APP_VERSION.hash || this.hash() === 'SwUpdatesService: activated')
   );
   readonly hash = computed<string>(() => this.#authStore.selectors.version().hash);
@@ -116,7 +116,7 @@ I compile my frontend app with a command like this: `yarn build:site`. This simp
 
 ## Case Scenario #2
 
-This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from [ngsw-worker.js](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net10.0/wwwroot). In addition, we use Angular [SwUpdates](https://github.com/ngrx/platform/blob/main/projects/ngrx.io/src/app/sw-updates/sw-updates.service.ts) which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
+This is the most common case scenario for modern (up to date) web browsers based on Google Chrome. It happens when you open this website from the browser bookmarks or when you browse this website while a new version was deployed to the server. You will get a message to reload/refresh the page with **ERROR: SwUpdatesService: activated**. This website uses a Service Worker loaded from [ngsw-worker.js](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net10.0/wwwroot). In addition, we use Angular [SwUpdates](https://github.com/ngrx/platform/blob/19.2.x/projects/ngrx.io/src/app/sw-updates/sw-updates.service.ts) which will load updated resources of the website behind the scene on the user's machine. Theoretically, this website should work fine without reloading most of the time.
 
 ## Case Scenario #3
 
