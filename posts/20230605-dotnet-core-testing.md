@@ -832,7 +832,7 @@ When it comes to JWT authorization, a big amount of testing consists in testing 
 
 - `Update_user_without_authorization_header_should_fail`- tests when JWT token is absent
 - `Update_user_with_altered_authorization_header_should_fail`- tests when to a valid JWT token is added one character
-- `Update_user_with_malformated_authorization_header_should_fail`- tests when JWT token has format `a.b`
+- `Update_user_with_malformed_authorization_header_should_fail`- tests when JWT token has format `a.b`
 - `Update_user_with_fake_authorization_header_should_fail`- tests when JWT token has correct format `a.b.c` but random characters
 - `Update_user_with_incorrect_authorization_header_key_should_fail`- tests when JWT token is valid but was encrypted with a different key
 - `Update_user_with_expired_authorization_header_should_fail`- tests when a valid JWT token was expired

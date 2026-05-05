@@ -81,7 +81,7 @@ That represents a standard validation message from `FluentValidation` library wh
 In our application, we use `Ardalis.GuardClauses.NotFoundException` instead of [BaseDomainException](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Domain/Common/BaseDomainException.cs). In addition, we use [ValidationExceptionHandlerMiddleware](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Middleware/ValidationExceptionHandlerMiddleware.cs) to intercept all validation exceptions that return `HttpStatusCode.UnprocessableEntity`(422). Unfortunately, MyTested does not work with the middleware concept. But, we can use `MyTested.AspNetCore.Mvc.Exceptions.InvocationAssertionException` and [FromNotFoundException](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/IdentityControllerRouteTest.cs) to test against two common exceptions:
 
 - `Edit_tag_with_wrong_id_should_fail`- The tag with the specified id does not exist in the database.
-- `Update_user_with_malformated_data_should_fail`- The webserver cannot create the object from the json data request.
+- `Update_user_with_malformed_data_should_fail`- The webserver cannot create the object from the json data request.
 
 ## Identity Controller Testing
 
@@ -89,7 +89,7 @@ When it comes to JWT authorization, a big amount of testing consists in testing 
 
 - `Update_user_without_authorization_header_should_fail`- tests when JWT token is absent
 - `Update_user_with_altered_authorization_header_should_fail`- tests when to a valid JWT token is added one character
-- `Update_user_with_malformated_authorization_header_should_fail`- tests when JWT token has format `a.b`
+- `Update_user_with_malformed_authorization_header_should_fail`- tests when JWT token has format `a.b`
 - `Update_user_with_fake_authorization_header_should_fail`- tests when JWT token has correct format `a.b.c` but random characters
 - `Update_user_with_incorrect_authorization_header_key_should_fail`- tests when JWT token is valid but was encrypted with a different key
 - `Update_user_with_expired_authorization_header_should_fail`- tests when a valid JWT token was expired
