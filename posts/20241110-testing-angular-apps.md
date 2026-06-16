@@ -14,7 +14,20 @@ short_title: Testing Angular Apps
   <nz-icon nzType="custom:ng-zorro" nzWidth="180px" nzHeight="180px" />
 </div>
 ```
-[![test-run]](https://github.com/cioina/angular-test-example/blob/main/version-2/test-run.png)
+
+```angular-template-block
+<div nz-row nzJustify="center" class="p-t-24">
+                 <img
+                  nz-image
+                  [width]="width()"
+                  [height]="width()"
+                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/version-2/test-run.png"
+                  [nzFallback]="fallback"
+                  [nzPlaceholder]="fallback"
+                  alt="test-run"
+                />
+</div>
+```
 
 [Our Angular app](https://cioina.azurewebsites.net/) Is based on [ng-antd-admin](https://github.com/huajian123/ng-antd-admin) combined with [angular-conduit-signals](https://github.com/AndyT2503/angular-conduit-signals). In addition, we use following Angular libraries direct form sources: [NG-ZORRO components src](https://github.com/NG-ZORRO/ng-zorro-antd/tree/master/components), [icons-angular src](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons-angular/src) and [component-store src](https://github.com/ngrx/platform/tree/main/modules/component-store/src) with some minor changes. All our reactive states look similar to [auth.store.ts](https://github.com/AndyT2503/angular-conduit-signals/blob/dev/src/app/shared/store/auth.store.ts)
 The app communicates with the server via REST API controllers built on top of .NET Core 10. The compiled bin code is on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net10.0) together with [compiled Angular app](https://github.com/cioina/cioina.azurewebsites.net/tree/main/bin/Release/net10.0/wwwroot)
@@ -36,9 +49,30 @@ All the files ending in [*.store.spec.ts](https://github.com/cioina/angular-test
 
 ## Using Signal type in Angular together with Reactive State library
 
-[![vs]](https://github.com/cioina/angular-test-example/blob/main/vs.png)
-
-[![ng-blog]](https://github.com/cioina/angular-test-example/blob/main/ng-blog.png)
+```angular-template-block
+<div nz-row nzJustify="center" class="p-t-24">
+                 <img
+                  nz-image
+                  [width]="width()"
+                  [height]="width()"
+                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/vs.png"
+                  [nzFallback]="fallback"
+                  [nzPlaceholder]="fallback"
+                  alt="vs"
+                />
+</div>
+<div nz-row nzJustify="center" class="p-t-24">
+                 <img
+                  nz-image
+                  [width]="width()"
+                  [height]="width()"
+                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/ng-blog.png"
+                  [nzFallback]="fallback"
+                  [nzPlaceholder]="fallback"
+                  alt="ng-blog"
+                />
+</div>
+```
 
 Before Signal type became native in Angular, we used [Reactive State library]( https://github.com/ngrx/platform) for [our integration tests](https://github.com/cioina/angular-test-example/tree/main/version-1). Now, the library has implemented two ways of using Signals: [@ngrx/signals](https://github.com/stefanoslig/angular-ngrx-nx-realworld-example-app/blob/main/libs/auth/data-access/src/auth.store.ts) and [@ngrx/component-store](https://github.com/AndyT2503/angular-conduit-signals/blob/dev/src/app/shared/store/auth.store.ts). We use the second one direct from sources.
 
