@@ -1,7 +1,6 @@
 ---
 title: ASP.NET Core 10 Testing
 short_title: ASP.NET Testing
-dynamic_angular_template: true
 ---
 
 <blockquote style="border-color: #faad14;">
@@ -874,7 +873,7 @@ In real life, .NET Core 10 will return a 401-error code. We created a series of 
                  // without WithHeaderAuthorization
                  .WithLocation("api/v1.0/identity/update")
                  .WithJsonBody(
-                      string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+                      string.Format("{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
                           $"{password}1",
                           $"{fullName}1"
                       )
@@ -914,7 +913,7 @@ public void Update_user_with_bad_input_should_return_validation_errors(
         .WithHeaderAuthorization(StaticTestData.GetJwtBearerAdministratorRole(email, 1))
         .WithLocation("api/v1.0/identity/update")
         .WithJsonBody(
-             string.Format(@"{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
+             string.Format("{{""user"":{{""password"":""{0}"",""username"":""{1}""}}}}",
                  $"{password}",
                  $"{fullName}"
              )
