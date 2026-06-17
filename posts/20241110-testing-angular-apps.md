@@ -17,15 +17,15 @@ short_title: Testing Angular Apps
 
 ```angular-template-block
 <div nz-row nzJustify="center" class="p-t-24">
-                 <img
-                  nz-image
-                  [width]="width()"
-                  [height]="width()"
-                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/version-2/test-run.png"
-                  [nzFallback]="fallback"
-                  [nzPlaceholder]="fallback"
-                  alt="test-run"
-                />
+  <img
+   nz-image
+   [width]="width()"
+   [height]="width()"
+   nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/version-2/test-run.png"
+   [nzFallback]="fallback"
+   [nzPlaceholder]="fallback"
+   alt="test-run"
+ />
 </div>
 ```
 
@@ -51,26 +51,26 @@ All the files ending in [*.store.spec.ts](https://github.com/cioina/angular-test
 
 ```angular-template-block
 <div nz-row nzJustify="center" class="p-t-24">
-                 <img
-                  nz-image
-                  [width]="width()"
-                  [height]="width()"
-                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/vs.png"
-                  [nzFallback]="fallback"
-                  [nzPlaceholder]="fallback"
-                  alt="vs"
-                />
+  <img
+   nz-image
+   [width]="width()"
+   [height]="width()"
+   nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/vs.png"
+   [nzFallback]="fallback"
+   [nzPlaceholder]="fallback"
+   alt="vs"
+  >
 </div>
 <div nz-row nzJustify="center" class="p-t-24">
-                 <img
-                  nz-image
-                  [width]="width()"
-                  [height]="width()"
-                  nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/ng-blog.png"
-                  [nzFallback]="fallback"
-                  [nzPlaceholder]="fallback"
-                  alt="ng-blog"
-                />
+  <img
+   nz-image
+   [width]="width()"
+   [height]="width()"
+   nzSrc="https://raw.githubusercontent.com/cioina/angular-test-example/refs/heads/main/ng-blog.png"
+   [nzFallback]="fallback"
+   [nzPlaceholder]="fallback"
+   alt="ng-blog"
+  >
 </div>
 ```
 

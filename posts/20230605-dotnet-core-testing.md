@@ -9,6 +9,20 @@ dynamic_angular_template: true
 
 ## Introduction
 
+```angular-template-block
+<div nz-row nzJustify="center" class="p-t-24">
+  <img
+   nz-image
+   [width]="width()"
+   [height]="width()"
+   nzSrc="https://raw.githubusercontent.com/cioina/MyTested-test-project-example/refs/heads/main/test-run.png"
+   [nzFallback]="fallback"
+   [nzPlaceholder]="fallback"
+   alt="test-run"
+ />
+</div>
+```
+
 In this article, we will give an example of testing of .NET Core code. We will use [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) - a well-known library for testing ASP.NET Core MVC. Here, we adapted the library to work with .NET Core 10 and API controllers with Bearer Header Authorization based on JWT token implementation provided by .NET Core. Our .NET Core 10 project is based on [BookStore](https://github.com/kalintsenkov/BookStore) repository and adapted to work with MyTested library. A full test project example is on [our GitHub repository](https://github.com/cioina/MyTested-test-project-example).
 
 The main focus of our example is testing of the standard `User Identity` provided by `Microsoft.AspNetCore.Identity`. The access to the user is provided by `UserManager<User>` micro service. The source code of all our examples is copied and pasted from our actual application. The compiled code of our .NET Core 10 application can be found on [our GitHub repository](https://github.com/cioina/cioina.azurewebsites.net).
