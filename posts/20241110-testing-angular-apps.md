@@ -13,9 +13,6 @@ short_title: Testing Angular Apps
   <span>=</span>
   <nz-icon nzType="custom:ng-zorro" nzWidth="180px" nzHeight="180px" />
 </div>
-```
-
-```angular-template-block
 <div nz-row nzJustify="center" class="p-t-24">
   <img
    nz-image
