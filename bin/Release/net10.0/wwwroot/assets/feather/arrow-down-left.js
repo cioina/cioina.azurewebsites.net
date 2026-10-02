@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'arrow-down-left',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.7L13.86 2.85a.5.5 0 0 0-.7-.7L3 12.29V7.5a.5.5 0 0 0-1 0z" /></svg>'
+  });
+})()

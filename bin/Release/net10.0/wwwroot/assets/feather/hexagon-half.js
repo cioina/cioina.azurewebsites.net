@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'hexagon-half',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M14 4.58v6.84L8 15V1zM8.5.13a1 1 0 0 0-1 0l-6 3.58a1 1 0 0 0-.5.87v6.84a1 1 0 0 0 .5.87l6 3.58a1 1 0 0 0 1 0l6-3.58a1 1 0 0 0 .5-.87V4.58a1 1 0 0 0-.5-.87z" /></svg>'
+  });
+})()

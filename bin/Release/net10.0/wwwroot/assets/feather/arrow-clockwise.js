@@ -1,0 +1,7 @@
+(function() {
+  __ant_icon_load({
+      name: 'arrow-clockwise',
+      theme: 'feather',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false"><path d="M8 3a5 5 0 1 0 4.55 2.91.5.5 0 0 1 .9-.41A6 6 0 1 1 8 2z" /><path d="M8 4.47V.53a.25.25 0 0 1 .41-.19l2.36 1.97c.12.1.12.28 0 .38L8.41 4.66a.25.25 0 0 1-.41-.2" /></svg>'
+  });
+})()

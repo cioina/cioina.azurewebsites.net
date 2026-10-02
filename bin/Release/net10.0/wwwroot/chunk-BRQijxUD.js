@@ -1,0 +1,1 @@
+import{ni as tb}from"./chunk-4C0-umFg.js";var p=(()=>{class r{transform(e){return Array(e).fill(0)}static ɵfac=function(i){return new(i||r)};static ɵpipe=tb({name:`numberLoop`,type:r,pure:!0})}return r})();export{p as t};
