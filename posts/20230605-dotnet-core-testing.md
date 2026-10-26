@@ -4,7 +4,7 @@ short_title: ASP.NET Testing
 ---
 
 <blockquote style="border-color: #faad14;">
-<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener noreferrer">.NET Core 10.0.9</a>, modified source code of <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener noreferrer">MyTested.AspNetCore.Mvc - Fluent Testing Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener noreferrer">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a>, and modified source code of <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener noreferrer">BookStore</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a></strong></p></blockquote>
+<p><strong>All C# code from this article was tested using <a href="https://versionsof.net/" target="_blank" rel="noopener noreferrer">.NET Core 10.0.14</a>, modified source code of <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc" target="_blank" rel="noopener noreferrer">MyTested.AspNetCore.Mvc - Fluent Testing Library for ASP.NET Core MVC</a> provided under <a href="https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/LICENSE" target="_blank" rel="noopener noreferrer">Apache License, Version 2.0 or Microsoft Public License (Ms-PL)</a>, and modified source code of <a href="https://github.com/kalintsenkov/BookStore" target="_blank" rel="noopener noreferrer">BookStore</a> provided under <a href="https://github.com/kalintsenkov/BookStore/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a></strong></p></blockquote>
 
 ## Introduction
 
@@ -894,7 +894,7 @@ The full set of tests of `IdentityController` is on [our GitHub repository](http
 
 ## Data Validation with FluentValidation Library
 
-Another change we made to MyTested is adding the possibility of testing data validation. For now, we will give an example of testing using [FluentValidation](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library:
+Another change we made to MyTested is adding the possibility of testing data validation. For now, we will give an example of testing using `FluentValidation` from [Conduit](https://github.com/realworld-apps/aspnetcore-realworld-example-app/blob/master/src/Conduit/Features/Articles/Create.cs) and [BookStore](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library:
 
 ```csharp
 [Theory]
