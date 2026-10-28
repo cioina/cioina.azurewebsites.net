@@ -12,12 +12,43 @@
           "AspNetCoreRateLimit": "5.0.0",
           "BlogAngular.Infrastructure": "1.0.4",
           "BlogAngular.Web": "1.0.4",
-          "Microsoft.AspNetCore.AzureAppServices.HostingStartup": "10.0.12",
+          "Microsoft.AspNetCore.AzureAppServices.HostingStartup": "10.0.14",
           "Serilog.AspNetCore": "10.0.0",
-          "Ardalis.GuardClauses.Reference": "5.0.0.0"
+          "Ardalis.GuardClauses.Reference": "5.0.0.0",
+          "Mediator": "3.1.0.0"
         },
         "runtime": {
           "BlogAngular.Startup.dll": {}
+        }
+      },
+      "Asp.Versioning.Abstractions/10.2.1": {
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Abstractions.dll": {
+            "assemblyVersion": "10.2.0.0",
+            "fileVersion": "10.2.9714.15149"
+          }
+        }
+      },
+      "Asp.Versioning.Http/10.2.1": {
+        "dependencies": {
+          "Asp.Versioning.Abstractions": "10.2.1"
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Http.dll": {
+            "assemblyVersion": "10.2.0.0",
+            "fileVersion": "10.2.9714.15157"
+          }
+        }
+      },
+      "Asp.Versioning.Mvc/10.2.1": {
+        "dependencies": {
+          "Asp.Versioning.Http": "10.2.1"
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Mvc.dll": {
+            "assemblyVersion": "10.2.0.0",
+            "fileVersion": "10.2.9714.15157"
+          }
         }
       },
       "Azure.Core/1.50.0": {
@@ -46,17 +77,17 @@
           }
         }
       },
-      "FluentValidation/12.1.1": {
+      "FluentValidation/12.2.0": {
         "runtime": {
           "lib/net8.0/FluentValidation.dll": {
             "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.1.1.0"
+            "fileVersion": "12.2.0.0"
           }
         }
       },
       "FluentValidation.AspNetCore/11.3.1": {
         "dependencies": {
-          "FluentValidation": "12.1.1",
+          "FluentValidation": "12.2.0",
           "FluentValidation.DependencyInjectionExtensions": "11.11.0"
         },
         "runtime": {
@@ -68,7 +99,7 @@
       },
       "FluentValidation.DependencyInjectionExtensions/11.11.0": {
         "dependencies": {
-          "FluentValidation": "12.1.1"
+          "FluentValidation": "12.2.0"
         },
         "runtime": {
           "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
@@ -77,79 +108,71 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.12": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.14": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.19.2"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.AspNetCore.AzureAppServices.HostingStartup/10.0.12": {
+      "Microsoft.AspNetCore.AzureAppServices.HostingStartup/10.0.14": {
         "dependencies": {
-          "Microsoft.AspNetCore.AzureAppServicesIntegration": "10.0.12"
+          "Microsoft.AspNetCore.AzureAppServicesIntegration": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.AspNetCore.AzureAppServicesIntegration/10.0.12": {
+      "Microsoft.AspNetCore.AzureAppServicesIntegration/10.0.14": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.AzureAppServices": "10.0.12"
+          "Microsoft.Extensions.Logging.AzureAppServices": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.AzureAppServicesIntegration.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.12": {
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.14": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "10.0.12"
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.AspNetCore.JsonPatch/10.0.12": {
+      "Microsoft.AspNetCore.JsonPatch/10.0.14": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.JsonPatch.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.12": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.14": {
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "10.0.12",
+          "Microsoft.AspNetCore.JsonPatch": "10.0.14",
           "Newtonsoft.Json": "13.0.4",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
-          }
-        }
-      },
-      "Microsoft.AspNetCore.Mvc.Versioning/5.1.0": {
-        "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Mvc.Versioning.dll": {
-            "assemblyVersion": "5.1.0.0",
-            "fileVersion": "5.1.8270.41513"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
@@ -169,11 +192,11 @@
           }
         }
       },
-      "Microsoft.Data.SqlClient/6.1.6": {
+      "Microsoft.Data.SqlClient/6.1.7": {
         "dependencies": {
           "Azure.Core": "1.50.0",
           "Azure.Identity": "1.17.1",
-          "Microsoft.Data.SqlClient.SNI.runtime": "6.0.2",
+          "Microsoft.Data.SqlClient.SNI.runtime": "6.0.3",
           "Microsoft.Identity.Client": "4.84.2",
           "Microsoft.Identity.Client.Broker": "4.84.2",
           "Microsoft.IdentityModel.JsonWebTokens": "8.19.2",
@@ -185,83 +208,83 @@
         "runtime": {
           "runtimes/win/lib/net9.0/Microsoft.Data.SqlClient.dll": {
             "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.16.26175.8"
+            "fileVersion": "6.17.26253.4"
           }
         }
       },
-      "Microsoft.Data.SqlClient.SNI.runtime/6.0.2": {
+      "Microsoft.Data.SqlClient.SNI.runtime/6.0.3": {
         "native": {
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
-            "fileVersion": "6.2.0.0"
+            "fileVersion": "6.3.0.0"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore/10.0.12": {
+      "Microsoft.EntityFrameworkCore/10.0.14": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.12"
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/10.0.12": {
+      "Microsoft.EntityFrameworkCore.Abstractions/10.0.14": {
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.InMemory/10.0.12": {
+      "Microsoft.EntityFrameworkCore.InMemory/10.0.14": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "10.0.12"
+          "Microsoft.EntityFrameworkCore": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/10.0.12": {
+      "Microsoft.EntityFrameworkCore.Relational/10.0.14": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "10.0.12"
+          "Microsoft.EntityFrameworkCore": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/10.0.12": {
+      "Microsoft.EntityFrameworkCore.SqlServer/10.0.14": {
         "dependencies": {
-          "Microsoft.Data.SqlClient": "6.1.6",
-          "Microsoft.EntityFrameworkCore.Relational": "10.0.12"
+          "Microsoft.Data.SqlClient": "6.1.7",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.14"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.Extensions.DependencyModel/10.0.12": {
+      "Microsoft.Extensions.DependencyModel/10.0.14": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
-            "assemblyVersion": "10.0.0.12",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.0.14",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
-      "Microsoft.Extensions.Logging.AzureAppServices/10.0.12": {
+      "Microsoft.Extensions.Logging.AzureAppServices/10.0.14": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.Logging.AzureAppServices.dll": {
-            "assemblyVersion": "10.0.12.0",
-            "fileVersion": "10.0.1226.42308"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
@@ -466,7 +489,7 @@
       },
       "Serilog.Settings.Configuration/10.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyModel": "10.0.12",
+          "Microsoft.Extensions.DependencyModel": "10.0.14",
           "Serilog": "4.3.0"
         },
         "runtime": {
@@ -577,8 +600,8 @@
       "Ardalis.Specification.EntityFrameworkCore/9.3.1": {
         "dependencies": {
           "Ardalis.Specification": "9.3.1",
-          "Microsoft.EntityFrameworkCore": "10.0.12",
-          "Microsoft.EntityFrameworkCore.Relational": "10.0.12"
+          "Microsoft.EntityFrameworkCore": "10.0.14",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.14"
         },
         "runtime": {
           "Ardalis.Specification.EntityFrameworkCore.dll": {
@@ -610,9 +633,10 @@
       "BlogAngular.Application/1.0.4": {
         "dependencies": {
           "BlogAngular.Domain": "1.0.4",
-          "FluentValidation": "12.1.1",
-          "MediatR": "1.0.0",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.12"
+          "FluentValidation": "12.2.0",
+          "Mediator.Abstractions": "1.0.0",
+          "Mediator.SourceGenerator": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.14"
         },
         "runtime": {
           "BlogAngular.Application.dll": {
@@ -638,10 +662,10 @@
         "dependencies": {
           "Ardalis.Specification.EntityFrameworkCore": "9.3.1",
           "BlogAngular.Application": "1.0.4",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.12",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.12",
-          "Microsoft.EntityFrameworkCore.InMemory": "10.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.12"
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.14",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.14",
+          "Microsoft.EntityFrameworkCore.InMemory": "10.0.14",
+          "Microsoft.EntityFrameworkCore.SqlServer": "10.0.14"
         },
         "runtime": {
           "BlogAngular.Infrastructure.dll": {
@@ -652,11 +676,11 @@
       },
       "BlogAngular.Web/1.0.4": {
         "dependencies": {
+          "Asp.Versioning.Mvc": "10.2.1",
           "BlogAngular.Application": "1.0.4",
           "FluentValidation.AspNetCore": "11.3.1",
-          "MediatR": "1.0.0",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.12",
-          "Microsoft.AspNetCore.Mvc.Versioning": "5.1.0"
+          "Mediator.Abstractions": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "10.0.14"
         },
         "runtime": {
           "BlogAngular.Web.dll": {
@@ -665,17 +689,25 @@
           }
         }
       },
-      "MediatR/1.0.0": {
+      "Mediator.Abstractions/1.0.0": {
         "runtime": {
-          "MediatR.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
+          "Mediator.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        }
+      },
+      "Mediator.SourceGenerator/1.0.0": {
+        "runtime": {
+          "Mediator.SourceGenerator.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
           }
         }
       },
       "Scrutor/5.1.1": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyModel": "10.0.12"
+          "Microsoft.Extensions.DependencyModel": "10.0.14"
         },
         "runtime": {
           "Scrutor.dll": {
@@ -691,6 +723,14 @@
             "fileVersion": "5.0.0.0"
           }
         }
+      },
+      "Mediator/3.1.0.0": {
+        "runtime": {
+          "Mediator.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        }
       }
     }
   },
@@ -699,6 +739,27 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Asp.Versioning.Abstractions/10.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jMBztsVim+rYVrkNY23dMuOjTGXGQ9+je1xb3i17KgUof7OcBZtMMDduEWoCQ52SpTlYqKsuzgJyUMCMOFCBfg==",
+      "path": "asp.versioning.abstractions/10.2.1",
+      "hashPath": "asp.versioning.abstractions.10.2.1.nupkg.sha512"
+    },
+    "Asp.Versioning.Http/10.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XaVOKS4AV6a6JdFsiuyLkNwU0ilWhUK2U71mBEXJsgi5AGpo24UkfZ4KUhpRGpuMmQNrugS7yxCIscGcnujdFA==",
+      "path": "asp.versioning.http/10.2.1",
+      "hashPath": "asp.versioning.http.10.2.1.nupkg.sha512"
+    },
+    "Asp.Versioning.Mvc/10.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fMzUraYZOAobKQn2PffrgPsULbCWFeWroYRYndPasxPsiQl1+i8x5qYRuMYZAbzDrBnymPUMBxT2gZG2PwbkcQ==",
+      "path": "asp.versioning.mvc/10.2.1",
+      "hashPath": "asp.versioning.mvc.10.2.1.nupkg.sha512"
     },
     "Azure.Core/1.50.0": {
       "type": "package",
@@ -714,12 +775,12 @@
       "path": "azure.identity/1.17.1",
       "hashPath": "azure.identity.1.17.1.nupkg.sha512"
     },
-    "FluentValidation/12.1.1": {
+    "FluentValidation/12.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EPpkIe1yh1a0OXyC100oOA8WMbZvqUu5plwhvYcb7oSELfyUZzfxV48BLhvs3kKo4NwG7MGLNgy1RJiYtT8Dpw==",
-      "path": "fluentvalidation/12.1.1",
-      "hashPath": "fluentvalidation.12.1.1.nupkg.sha512"
+      "sha512": "sha512-DR3lFbdnKucaaj1/8zMNOACMz/64igzox1yVZSFVsLxYB5mxAB+wFP1WZ8fjwrZnbU1KA1DoMzHKYKxUfuZ4wQ==",
+      "path": "fluentvalidation/12.2.0",
+      "hashPath": "fluentvalidation.12.2.0.nupkg.sha512"
     },
     "FluentValidation.AspNetCore/11.3.1": {
       "type": "package",
@@ -735,54 +796,47 @@
       "path": "fluentvalidation.dependencyinjectionextensions/11.11.0",
       "hashPath": "fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.12": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-DeE+Bq2OqB3FikFkZk+7gFBeLOQhkSolejLrbi+a9zpfvXtW1Ff6Nd6DIvHXIm+pc4aM4+52vDy3jnuau0qoUQ==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.12",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.12.nupkg.sha512"
+      "sha512": "sha512-DaTs32NtRkTabidrvhLhcXpa+Uguw0rN5FaX8Q1HmzbYtcI72iSauYlN4WmqbrXp6QQoB8fmZlHk5/bjiMTY7A==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.14",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.14.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.AzureAppServices.HostingStartup/10.0.12": {
+    "Microsoft.AspNetCore.AzureAppServices.HostingStartup/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3AoRUFTN28r9ftLMwY7CZlRkSUbwf/g0IrJdhZnqpxLxMzT5XOhOPyXQZengmwhA2FXrWM6C/KfsH09L1K0Bkg==",
-      "path": "microsoft.aspnetcore.azureappservices.hostingstartup/10.0.12",
-      "hashPath": "microsoft.aspnetcore.azureappservices.hostingstartup.10.0.12.nupkg.sha512"
+      "sha512": "sha512-rojfHXHxHxJb+DerRu1r1qNS505aIbAVTt0ZonMWNxEcP/H9uV/hZ35roMWHUg5xi8t4rk+polrt2sZ0YqGjYA==",
+      "path": "microsoft.aspnetcore.azureappservices.hostingstartup/10.0.14",
+      "hashPath": "microsoft.aspnetcore.azureappservices.hostingstartup.10.0.14.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.AzureAppServicesIntegration/10.0.12": {
+    "Microsoft.AspNetCore.AzureAppServicesIntegration/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dIHvjg0/HG4Bo3sKjIFRT7/ex8XB6YNo3mCc21Smun+o109fSmvmbd4llWduHKf0IdHzqhgmS52mwNwLBpMYUA==",
-      "path": "microsoft.aspnetcore.azureappservicesintegration/10.0.12",
-      "hashPath": "microsoft.aspnetcore.azureappservicesintegration.10.0.12.nupkg.sha512"
+      "sha512": "sha512-dVVR3LwBUdvKnXS0hnQy0r62IX+nExVuY1lbv1//pOpW9Q5VBpZx8KorN1z8IrRa6rRadoym8eMPngzuZR6yuQ==",
+      "path": "microsoft.aspnetcore.azureappservicesintegration/10.0.14",
+      "hashPath": "microsoft.aspnetcore.azureappservicesintegration.10.0.14.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.12": {
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-7W/9vKC65y41W6JXwC6WSU++D43wY/ANhrm7tJdbm2lrbzNkYClja6uL3Cg69y+PJ1Q4nARb3eWs9PNMWCdYxQ==",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/10.0.12",
-      "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.10.0.12.nupkg.sha512"
+      "sha512": "sha512-GPU3K0HaLlYu0dnocEglRhrnYRu6VTJocynD5TF8I2lvcMsNzhv46WJLxh/USxu6hgmOrNZH/VhGl4ckdiPHpg==",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/10.0.14",
+      "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.10.0.14.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.JsonPatch/10.0.12": {
+    "Microsoft.AspNetCore.JsonPatch/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/B94WvMCmIU29+pZ0A1q30Umy06Q+0sAeE1KvK10JpUVnFtMTtImVnMhC7BdygJMHwG0xJNHSZX5ug29WldnxA==",
-      "path": "microsoft.aspnetcore.jsonpatch/10.0.12",
-      "hashPath": "microsoft.aspnetcore.jsonpatch.10.0.12.nupkg.sha512"
+      "sha512": "sha512-WLQPWwL+WcavJEW3Sgqil4uVT5rZG9ZDtAbd9GgdovduPdJl+ccwGEQlplyk7jc4XumA88zpj7KiRIiohU+ufA==",
+      "path": "microsoft.aspnetcore.jsonpatch/10.0.14",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.10.0.14.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.12": {
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/zn5QXe8pVqeQXvd58w3Z5i5HlmvlmgZvCrlXPgC55ftvTHD8oV0Om6jCAtbJjQ5DPzFp0GXjiRKdh1BTqDw0w==",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/10.0.12",
-      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.10.0.12.nupkg.sha512"
-    },
-    "Microsoft.AspNetCore.Mvc.Versioning/5.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UX8w9BlCiZpr6Ox4YAve1w0CkI1CAovukGNzKd7v0+5pZc8lzuG5tRovucr1RWIKHs0E/Yx8563CN7KzaB3bpw==",
-      "path": "microsoft.aspnetcore.mvc.versioning/5.1.0",
-      "hashPath": "microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512"
+      "sha512": "sha512-6VKpATRQBCyQlh5gIlxqGd3E/8D3AjokvdNSK39RrKRmV4HtSKmjkXdYjzEb/o3K4dVmPhzTzuRCyBMSxiPCMw==",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/10.0.14",
+      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.10.0.14.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
@@ -798,68 +852,68 @@
       "path": "microsoft.bcl.cryptography/10.0.2",
       "hashPath": "microsoft.bcl.cryptography.10.0.2.nupkg.sha512"
     },
-    "Microsoft.Data.SqlClient/6.1.6": {
+    "Microsoft.Data.SqlClient/6.1.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6abRPXrjjEWxcNkTomBIzBdGolYnwD0ykP+6YAynaEEfKlGe94ZSQd58pggucusp28xUA7wLo9XcvzU92ZuF6Q==",
-      "path": "microsoft.data.sqlclient/6.1.6",
-      "hashPath": "microsoft.data.sqlclient.6.1.6.nupkg.sha512"
+      "sha512": "sha512-NipUfw4MfNxdiVPekCxuLyTZ0GK68tXW0pmCzp8zK+foDHNMdd9fttxP0SIook03U5oy83vAsHCBNhTz+uqXNA==",
+      "path": "microsoft.data.sqlclient/6.1.7",
+      "hashPath": "microsoft.data.sqlclient.6.1.7.nupkg.sha512"
     },
-    "Microsoft.Data.SqlClient.SNI.runtime/6.0.2": {
+    "Microsoft.Data.SqlClient.SNI.runtime/6.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-f+pRODTWX7Y67jXO3T5S2dIPZ9qMJNySjlZT/TKmWVNWe19N8jcWmHaqHnnchaq3gxEKv1SWVY5EFzOD06l41w==",
-      "path": "microsoft.data.sqlclient.sni.runtime/6.0.2",
-      "hashPath": "microsoft.data.sqlclient.sni.runtime.6.0.2.nupkg.sha512"
+      "sha512": "sha512-kt2JDsmcFGzeanCo6hJNalMcjEvgtYoxSQjqh00Nm1xXmahHzuR48TxjS1nq/lpnYh+g+wLqD5D9WSz8xsybhw==",
+      "path": "microsoft.data.sqlclient.sni.runtime/6.0.3",
+      "hashPath": "microsoft.data.sqlclient.sni.runtime.6.0.3.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/10.0.12": {
+    "Microsoft.EntityFrameworkCore/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-e7OrVN8U5yr4kuwdTHWBHGVQIVsGfMkAr0Ej1/BnrS989Q0XBVANpIzNZ2bc1GvMZ0/XwMt5InTnmKskxGy99Q==",
-      "path": "microsoft.entityframeworkcore/10.0.12",
-      "hashPath": "microsoft.entityframeworkcore.10.0.12.nupkg.sha512"
+      "sha512": "sha512-vY3931PYPIDBbKovGHbACmpOWvURvKNyRXfCjMh5yLW+FH6vLWeqUu2xzSCRo4Oz4tgx9GYpd0JlV5LDyAoQdg==",
+      "path": "microsoft.entityframeworkcore/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.10.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/10.0.12": {
+    "Microsoft.EntityFrameworkCore.Abstractions/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kDrux7T6C3V/YYYe2LXr7x6AEsVyq5Y2YoTE9er1SwbDtap3z1g8RgxNh5eKQVyB4T+DKvBBJ4Ezd/VZzJQJZg==",
-      "path": "microsoft.entityframeworkcore.abstractions/10.0.12",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.12.nupkg.sha512"
+      "sha512": "sha512-/SaznoTTFfKzxYEbCPAwwKBR3XT92DZgH4jJ3/cqs2skP3o2D+TL6i9Aaj+8Azwtu6/sRd0ve4P2mN12nfVmCw==",
+      "path": "microsoft.entityframeworkcore.abstractions/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.InMemory/10.0.12": {
+    "Microsoft.EntityFrameworkCore.InMemory/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zpyIER4WRE4wslktQWBi6aD2DbX6AwOVmMar5yO0tbswQ/vh772Ot2j+1f0/1Nxk98WSRmssLQhRpxWZPk7g+w==",
-      "path": "microsoft.entityframeworkcore.inmemory/10.0.12",
-      "hashPath": "microsoft.entityframeworkcore.inmemory.10.0.12.nupkg.sha512"
+      "sha512": "sha512-g70gixwkCTNuM6lMfElDzU9mtYVX6CYZ6ZhFbxZlvQv7Y9fRHmypflGHj3ivFARSlLgYuGmeEY9ebctOcHqp1w==",
+      "path": "microsoft.entityframeworkcore.inmemory/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.10.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/10.0.12": {
+    "Microsoft.EntityFrameworkCore.Relational/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OiHmr8XzX96dbgMsYGe8qoqg4KxibdZG2r0QUVJBGktFInOp8IrABe8jvcbo5hrqeWfbwpK7fCEBiEPbY/ik4A==",
-      "path": "microsoft.entityframeworkcore.relational/10.0.12",
-      "hashPath": "microsoft.entityframeworkcore.relational.10.0.12.nupkg.sha512"
+      "sha512": "sha512-Ut0kgtfoKX9QElQVEXSEAgdQc79jISWStVWSOhfPDDHNSKMwFzSXG3gtdYFTAbsBoV+8NtXdVaj4xwdqeky8UA==",
+      "path": "microsoft.entityframeworkcore.relational/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.relational.10.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/10.0.12": {
+    "Microsoft.EntityFrameworkCore.SqlServer/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Wt/JUrctpOPfv3DNcZ6oKeg+FouanIXnrLfB8WN8DdMoqS/bxi9yPrwTKIEFB32qcKTUb5i9AVTCdbQBUid6ZQ==",
-      "path": "microsoft.entityframeworkcore.sqlserver/10.0.12",
-      "hashPath": "microsoft.entityframeworkcore.sqlserver.10.0.12.nupkg.sha512"
+      "sha512": "sha512-S3zuzJE5qcl4jjBwSI1x1WZp/GiwzBk1qlFjI77O1E/FZ0mtXNYRBDCfAY0x7nly2zZjM2U5XIkw7AD3DsSpEQ==",
+      "path": "microsoft.entityframeworkcore.sqlserver/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.sqlserver.10.0.14.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyModel/10.0.12": {
+    "Microsoft.Extensions.DependencyModel/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rDPQVTxh/zMTDF7wHlRqL/jjZbwjAP6315ydBxj51pZW7qkAwGwjoSiMutxYI91xmOE3ZXjAGHbYRqzyJV7Urw==",
-      "path": "microsoft.extensions.dependencymodel/10.0.12",
-      "hashPath": "microsoft.extensions.dependencymodel.10.0.12.nupkg.sha512"
+      "sha512": "sha512-N8OcqM0370wSXMJ3ZxO66rSElHrIgxvpfUn0vV7zRj7NvKo0nfwgEoTmC3Yz3860o60IaQ4KIPyeLIGX9EeNWA==",
+      "path": "microsoft.extensions.dependencymodel/10.0.14",
+      "hashPath": "microsoft.extensions.dependencymodel.10.0.14.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.AzureAppServices/10.0.12": {
+    "Microsoft.Extensions.Logging.AzureAppServices/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3uHeIpQpILoxgoQEhB54xomt9QpN7Yrfgzf0V5VGi817V8tjpBFvJtDSM6Pqsq5HhmiXJb3oct0YxwEE/xuWig==",
-      "path": "microsoft.extensions.logging.azureappservices/10.0.12",
-      "hashPath": "microsoft.extensions.logging.azureappservices.10.0.12.nupkg.sha512"
+      "sha512": "sha512-szUbWFI9Db8XxiaLqgGRZMikTjOVUBiewk6VtQ1GnWkTYf9i+69fJkPBZuNp7CxoYx4BpNM/O0LrZivb7gIf7w==",
+      "path": "microsoft.extensions.logging.azureappservices/10.0.14",
+      "hashPath": "microsoft.extensions.logging.azureappservices.10.0.14.nupkg.sha512"
     },
     "Microsoft.Identity.Client/4.84.2": {
       "type": "package",
@@ -1095,7 +1149,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MediatR/1.0.0": {
+    "Mediator.Abstractions/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Mediator.SourceGenerator/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1106,6 +1165,11 @@
       "sha512": ""
     },
     "Ardalis.GuardClauses.Reference/5.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Mediator/3.1.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

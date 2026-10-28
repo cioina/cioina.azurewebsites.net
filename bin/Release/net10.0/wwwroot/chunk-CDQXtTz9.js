@@ -1,0 +1,1 @@
+import{Or as nb}from"./chunk-DwsYIa9-.js";var p=(()=>{class r{transform(e){return Array(e).fill(0)}static ɵfac=function(i){return new(i||r)};static ɵpipe=nb({name:`numberLoop`,type:r,pure:!0})}return r})();export{p as t};
