@@ -30,7 +30,7 @@ One of the advantages of having of a detailed test module for standard `Microsof
 
 ## MyTested Library Out of The Box
 
-I found out about MyTested for the first time from [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Tests/Controllers/AddressesControllerTests.cs) repository. At the same time, I found out about `JwtAuthentication` implementation from same [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Web/Server/Infrastructure/Extensions/ServiceCollectionExtensions.cs) repository and from [aspnetcore-realworld-example](https://github.com/gothinkster/aspnetcore-realworld-example-app/blob/master/src/Conduit/ServicesExtensions.cs) repository. Both `JwtAuthentication` implementations did not work with original [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) library, so I decided to find out why. I do not know who engineered MyTested, but I was not able to fully understand how it works. I was able only to add some small pieces of code to make MyTested and my own `JwtAuthentication` implementation work and not to break any original MyTested tests. But, what MyTested can do out of the box? The best answer is in [MusicStore](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/tree/development/samples/MusicStore/MusicStore.Test) testing project. For the API controller, [here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/FrontEndRouteTest.cs) is an example:
+I found out about MyTested for the first time from [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Tests/Controllers/AddressesControllerTests.cs) repository. At the same time, I found out about `JwtAuthentication` implementation from same [BlazorShop](https://github.com/kalintsenkov/BlazorShop/blob/master/src/BlazorShop.Web/Server/Infrastructure/Extensions/ServiceCollectionExtensions.cs) repository and from [realworld-example-app](https://github.com/cioina/realworld-example-app/blob/main/src/Conduit/ServicesExtensions.cs) repository. Both `JwtAuthentication` implementations did not work with original [MyTested](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) library, so I decided to find out why. I do not know who engineered MyTested, but I was not able to fully understand how it works. I was able only to add some small pieces of code to make MyTested and my own `JwtAuthentication` implementation work and not to break any original MyTested tests. But, what MyTested can do out of the box? The best answer is in [MusicStore](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/tree/development/samples/MusicStore/MusicStore.Test) testing project. For the API controller, [here](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/FrontEndRouteTest.cs) is an example:
 
 ```csharp
 using BlogAngular.Application.Common.Version;
@@ -62,7 +62,7 @@ namespace BlogAngular.Test.Routing
 
 ## .NET Core Identity Controller Implementation
 
-Our controller implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs). We added two more methods: `LoginPassword` and `Update` with `[Authorize(AuthenticationSchemes = Bearer, Policy = BearerPolicy)]` attribute that uses Bearer Header Authorization based on JWT token implementation provided by .NET Core 10. Our Angular 20 application that runs in a web browser will make a request to the endpoint `http://localhost:1503/api/v1.0/identity/update`. The request has an Authorization header with a JWT token. The request body has some data in JSON format. Our .NET Core 10 application must authenticate the user based on the JWT token and authorize the user based on a specific policy. Once the user passes the authorization process, the application must execute a command and return some data in JSON format. Below, we give an example of an [API controller](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs)
+Our controller implementation is based on [this GitHub repository](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Web/Features/IdentityController.cs). We added two more methods: `LoginPassword` and `Update` with `[Authorize(AuthenticationSchemes = Bearer, Policy = BearerPolicy)]` attribute that uses Bearer Header Authorization based on JWT token implementation provided by .NET Core 10. Our Angular 20 application that runs in a web browser will make a request to the endpoint `http://localhost:5000/api/v1.0/identity/update`. The request has an Authorization header with a JWT token. The request body has some data in JSON format. Our .NET Core 10 application must authenticate the user based on the JWT token and authorize the user based on a specific policy. Once the user passes the authorization process, the application must execute a command and return some data in JSON format. Below, we give an example of an [API controller](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Web/Web/Features/IdentityController.cs)
 
 ### IdentityController
 
@@ -894,7 +894,7 @@ The full set of tests of `IdentityController` is on [our GitHub repository](http
 
 ## Data Validation with FluentValidation Library
 
-Another change we made to MyTested is adding the possibility of testing data validation. For now, we will give an example of testing using `FluentValidation` from [Conduit](https://github.com/realworld-apps/aspnetcore-realworld-example-app/blob/master/src/Conduit/Features/Articles/Create.cs) and [BookStore](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library:
+Another change we made to MyTested is adding the possibility of testing data validation. For now, we will give an example of testing using [FluentValidation](https://github.com/kalintsenkov/BookStore/blob/main/src/Server/BookStore.Application/Catalog/Authors/Commands/Create/AuthorCreateCommandValidator.Specs.cs). Following is an example of testing data validation using modified version of MyTested library:
 
 ```csharp
 [Theory]
@@ -936,6 +936,8 @@ public void Update_user_with_bad_input_should_return_validation_errors(
    { "UserJson.FullName", ["The length of 'User Json Full Name' must be at least 2 characters. You entered 1 characters."] },
 });
 ```
+
+[Conduit](https://github.com/realworld-apps/aspnetcore-realworld-example-app/blob/master/src/Conduit/Features/Articles/Create.cs)
 
 As you can see, now we can test data validation against the validation errors coming from FluentValidation library. Following are [three tests](https://github.com/cioina/MyTested-test-project-example/blob/main/src/BlogAngular.Test/Test/Routing/TagsControllerRouteTest.cs) witch test against the constraint that the tag name is unique:
 
